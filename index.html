@@ -1,0 +1,2356 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="verifactu-wiki">VeriFactu Wiki</h1>
+<p>Esta biblioteca tiene como objetivo facilitar la generación, conservación y envío de registros de facturación a la AEAT, cumpliendo con los requisitos del sistema VERI*FACTU.</p>
+<p>VERI*FACTU es un sistema diseñado para combatir el fraude fiscal, centrado específicamente en la gestión del IVA/IGIC.</p>
+<p>Se trata de un sistema cuya finalidad es combatir el fraude fiscal, y por lo tanto en eso se basan sus especificaciones. Concretamente, se circunscribe al ámbito del IVA / IGIC.</p>
+<p>VERI*FACTU <strong>no</strong> es un sistema de facturación electrónica, como EDIFACT o Facturae. Tampoco incluye:</p>
+<ul>
+<li>Información sobre retenciones (IRPF, obras, etc.).</li>
+<li>Detalles de vencimientos.</li>
+<li>Datos a nivel de línea sobre bienes y servicios facturados.</li>
+<li>Información sobre pedidos de venta o de compra.</li>
+</ul>
+<p>Por lo tanto <strong>no se trata de una especificación más de factura electrónica</strong>. Se trata de un detalle de líneas que recogen las distintas bases imponibles, tipos y cuotas tributarias, las cuales deben ser comunicadas en tiempo real a la AEAT, el cual es inalterable respecto a los siguientes datos:</p>
+<ol>
+<li>NIF del emisor.</li>
+<li>Numero de factura y serie.</li>
+<li>Fecha de expedición de la factura.</li>
+<li>Tipo de factura.</li>
+<li>Cuota total.</li>
+<li>Importe total.</li>
+<li>Fecha, hora y huso horario de generación del registro.</li>
+</ol>
+<p>Así como respecto al orden de generación de los documentos. VERI*FACTU utiliza tecnología Blockchain para garantizar la inalterabilidad de los registros. Cada registro incluye la huella del anterior, creando una cadena segura e ininterrumpida de datos.</p>
+<p>Esta se trata de la segunda aplicación de esta tecnología a nivel tributario, tras el proyecto Batuz iniciado en el ámbito foral del País Vasco hace ya un tiempo.</p>
+<p><em><strong>No todo el mundo está obligado a utilizar el sistema definido en esta nueva normativa:</strong></em></p>
+<p><strong>No obligados:</strong> Si está en el SII, si no actúa como empresario (alquiler de locales o viviendas por parte de particulares...) o si emite facturas en papel sin el uso de ningún sistema informático.</p>
+<p>Si es un empresario no acogido al SII que utiliza un sistema informático para la emisión de sus facturas, este sistema tiene que cumplir con lo establecido en VERI * FACTU.</p>
+<p>Respecto a los <strong>plazos de adopción</strong> los desarrolladores tenemos hasta el <strong>29 de julio de 2025</strong> para adaptar nuestros sistemas. En cuanto a los empresarios están aún por confirmar, pero en principio empresas a partir del <strong>1 de enero de 2026</strong> y autónomos a partir del <strong>1 de julio de 2026</strong>.</p>
+<p><strong>Plazos de adopción:</strong></p>
+<ul>
+<li><strong>Desarrolladores:</strong> hasta el <strong>29 de julio de 2025</strong>.</li>
+<li><strong>Empresarios (en principio):</strong>
+<ul>
+<li>Empresas: a partir del <strong>1 de enero de 2026</strong>.</li>
+<li>Autónomos: a partir del <strong>1 de julio de 2026</strong>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="tabla-de-contenidos">Tabla de contenidos</h2>
+<p>A continuación, se detallan los apartados principales de esta documentación:</p>
+<p><a href="#config">Configuración</a><br>
+<a href="#files">Sistema de archivos</a><br>
+<a href="#messages">Operaciones envío</a><br>
+<a href="#blockchain">Operaciones cadena de bloques</a><br>
+<a href="#hash">Operaciones huella</a><br>
+<a href="#qr">Operaciones código QR</a><br>
+<a href="#fc">Control de flujo</a></p>
+<p><a href="#st">Trabajo con diferentes certificados por OT o configuraciones distintas</a></p>
+<p><a href="#api">API REST</a></p>
+<p><a href="#sampentr">Ejemplos altas</a></p>
+<ul>
+<li><a href="#sampentrgral">Factura normal régimen general</a></li>
+<li><a href="#sampentrsimp">Factura simplificada</a></li>
+<li><a href="#sampentrrec">Factura recargo de equivalencia</a></li>
+<li><a href="#sampentrrect">Factura rectificativa</a></li>
+<li><a href="#sampentradmondif">Factura a la Administración con IVA diferido</a></li>
+<li><a href="#sampentrnsart714">Factura operación No Sujeta artículo 7, 14, otros.</a></li>
+<li><a href="#sampentrnsloc">Factura operación No Sujeta por Reglas de localización.</a></li>
+<li><a href="#sampentrnssuplidos">Factura con Suplidos.</a></li>
+<li><a href="#sampentrex20">Factura exenta articulo 20 LIVA.</a></li>
+<li><a href="#sampentrtxidue">Factura a cliente con VAT number de la UE</a></li>
+<li><a href="#sampentrtxidpassport">Factura a cliente con pasaporte como identificador</a></li>
+<li><a href="#sampentrtxidother">Factura a cliente otro documento probatorio como identificador</a></li>
+<li><a href="#sampentrigic">Factura IGIC Canarias</a></li>
+</ul>
+<p><a href="#comiterop">Interoperabilidad COM</a></p>
+<p><a href="#resend">Reenvío de una factura no enviada por fallo en las comunicaciones</a></p>
+<a name="config"/>
+<h2 id="configuraci%C3%B3n">Configuración</h2>
+<p>La configuración del sistema se almacena en un archivo xml que tiene por defecto el nombre de 'Settings.xml'. La ubicación del archivo de configuración se encuentra en la siguiente carpeta del sistema:</p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Carpeta del sistema dónde se ubica el archivo Settings.xml</span>
+<span class="hljs-keyword">var</span> settingsFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + 
+System.IO.Path.DirectorySeparatorChar + <span class="hljs-string">"VeriFactu"</span>;
+
+</div></code></pre>
+<p>Por lo general en sistemas Windows <code>'C:\ProgramData\VeriFactu'</code> y en sistemas linux <code>'/usr/share/VeriFactu'</code>. Las distintas variables de configuración resultan resumidas en la siguiente tabla:</p>
+<table>
+<thead>
+<tr>
+<th>Propiedad</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BlockchainPath</td>
+<td>Ruta al directorio que actuará como almacén de las distintas cadenas de bloques por emisor.</td>
+</tr>
+<tr>
+<td>CertificatePassword</td>
+<td>Password del certificado. Este valor sólo es necesario si tenemos establecido el valor para 'CertificatePath' y el certificado tiene clave de acceso. Sólo se utiliza en los certificados cargados desde el sistema de archivos.</td>
+</tr>
+<tr>
+<td>CertificatePath</td>
+<td>Ruta al archivo del certificado a utilizar. Sólo se utiliza en los certificados cargados desde el sistema de archivos.</td>
+</tr>
+<tr>
+<td>CertificateSerial</td>
+<td>Número de serie del certificado a utilizar. Mediante este número de serie se selecciona del almacén de certificados de windows el certificado con el que realizar las comunicaciones.</td>
+</tr>
+<tr>
+<td>CertificateThumbprint</td>
+<td>Hash o Huella digital del certificado a utilizar. Mediante esta huella digital se selecciona del almacén de certificados de windows el certificado con el que realizar las comunicaciones.</td>
+</tr>
+<tr>
+<td>IDVersion</td>
+<td>Identificación de la versión actual del esquema o estructura de información utilizada para la generación y conservación / remisión de los registros de facturación. Este campo forma parte del detalle de las circunstancias de generación de los registros de facturación. Alfanumérico(3) L15: 1.0: Versión actual (1.0) del esquema utilizado</td>
+</tr>
+<tr>
+<td>InboxPath</td>
+<td>Ruta al directorio que actuará como bandeja de entrada. En este directorio se almacenarán todos los mensajes recibidos de la AEAT mediante VERI*FACTU.</td>
+</tr>
+<tr>
+<td>InvoicePath</td>
+<td>Ruta al directorio que actuará almacenamiento de las facturas emitidas por emisor.</td>
+</tr>
+<tr>
+<td>LoggingEnabled</td>
+<td>Indica si está activado el log de mensajes del sistema.</td>
+</tr>
+<tr>
+<td>LogPath</td>
+<td>Ruta al directorio que actuará almacenamiento del registro de mensajes del sistema.</td>
+</tr>
+<tr>
+<td>OutboxPath</td>
+<td>Ruta al directorio que actuará como bandeja de salida. En este directorio se almacenará una copia de cualquier envío realizado a la AEAT mediante el VERI * FACTU.</td>
+</tr>
+<tr>
+<td>SistemaInformatico</td>
+<td>Datos del sistema informático.</td>
+</tr>
+<tr>
+<td>SkipNifAeatValidation</td>
+<td>Indica si salta la validación en línea de NIF con la AEAT.</td>
+</tr>
+<tr>
+<td>SkipViesVatNumberValidation</td>
+<td>Indica si salta la validación en línea de en el censo VIES de los VAT numbers intracomunitarios.</td>
+</tr>
+<tr>
+<td>VeriFactuEndPointPrefix</td>
+<td>EndPoint del web service de la AEAT para envío registros alta y anulación.</td>
+</tr>
+<tr>
+<td>VeriFactuEndPointValidatePrefix</td>
+<td>EndPoint del web service de la AEAT de validación de Verifactu.</td>
+</tr>
+<tr>
+<td>VeriFactuHashAlgorithm</td>
+<td>Algoritmo a utilizar para el cálculo de hash. Alfanumérico(2) L12.</td>
+</tr>
+<tr>
+<td>VeriFactuHashInputEncoding</td>
+<td>Codificación del texto de entrada para el hash. UTF8 según las especificaciones.</td>
+</tr>
+</tbody>
+</table>
+<p>Las propiedades del bloque <code>SistemaInformatico</code> de la clase Settings son las siguientes:</p>
+<table>
+<thead>
+<tr>
+<th>Propiedad</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NombreRazon</td>
+<td>Nombre productor sistema. Alfanumérico (120).</td>
+</tr>
+<tr>
+<td>NIF</td>
+<td>NIF productor sistema. FormatoNIF(9).</td>
+</tr>
+<tr>
+<td>NombreSistemaInformatico</td>
+<td>Nombre dado por el productor al sistema informático de facturación utilizado. Alfanumérico (30).</td>
+</tr>
+<tr>
+<td>IdSistemaInformatico</td>
+<td>Código ID del sistema informático de facturación utilizado. Alfanumérico(2).</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>Identificación de la Versión del sistema de facturación utilizado. Alfanumérico(50).</td>
+</tr>
+<tr>
+<td>NumeroInstalacion</td>
+<td>Número de instalación del sistema informático de facturación (SIF) utilizado. Deberá distinguirlo de otros posibles SIF utilizados para realizar la facturación del obligado a expedir facturas, es decir, de otras posibles instalaciones de SIF pasadas, presentes o futuras utilizadas para realizar la facturación del obligado a expedir facturas, incluso aunque en dichas instalaciones se emplee el mismo SIF de un productor. Alfanumérico(100).</td>
+</tr>
+<tr>
+<td>TipoUsoPosibleSoloVerifactu</td>
+<td>Especifica si para cumplir el Reglamento el sistema informático de facturación solo puede funcionar exclusivamente como Veri*Factu. Alfanumérico (1) L4: S: Sí / N: No. En el caso de esta biblioteca siempre debe ser 'S'.</td>
+</tr>
+<tr>
+<td>TipoUsoPosibleMultiOT</td>
+<td>Especifica si el sistema informático de facturación permite llevar independientemente la facturación de varios obligados tributarios (valor &quot;S&quot;) o solo de uno (valor &quot;N&quot;). Obligatorio en registros de facturación de alta y de anulación, y opcional en registros de evento.  Alfanumérico (1) L4: S: Sí / N: No. En el caso de esta biblioteca siempre debe ser 'S'.</td>
+</tr>
+<tr>
+<td>IndicadorMultiplesOT</td>
+<td>Indicador de que el sistema informático, en el momento de la generación de este registro, está soportando la facturación de más de un obligado tributario. Este valor deberá obtenerlo automáticamente el sistema informático a partir del número de obligados tributarios contenidos y/o gestionados en él en ese momento, independientemente de su estado operativo (alta, baja...), no pudiendo obtenerse a partir de otra información ni ser introducido directamente por el usuario del sistema informático ni cambiado por él. El valor &quot;N&quot; significará que el sistema informático solo contiene y/o gestiona un único obligado tributario (de alta o de baja o en cualquier otro estado), que se corresponderá con el obligado a expedir factura de este registro de facturación. En cualquier otro caso, se deberá informar este campo con el valor &quot;S&quot;. Obligatorio en registros de facturación de alta y de anulación, y opcional en registros de evento.</td>
+</tr>
+</tbody>
+</table>
+<a name="files"/>
+<h2 id="sistema-de-archivos">Sistema de archivos</h2>
+<p>El software almacena en disco todos los xml relacionados con los mensajes emitidos y recibidos de la AEAT; Así como todos los xml de registro de manera individual (alta o anulación). También se almacenan los datos de la cadena de bloques en formato csv. El sistema de log en caso de estar activado guarda los mensajes del sistema en archivos de texto en la carpeta asignada en la configuración.</p>
+<p>El directorio por defecto de almacenamiento de todos los ficheros es la siguiente carpeta del sistema:</p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Carpeta del sistema dónde se ubica el archivo Settings.xml</span>
+<span class="hljs-keyword">var</span> settingsFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + 
+System.IO.Path.DirectorySeparatorChar + <span class="hljs-string">"VeriFactu"</span>;
+
+</div></code></pre>
+<p>Por lo general en sistemas Windows <code>'C:\ProgramData\VeriFactu'</code> y en sistemas linux <code>'/usr/share/VeriFactu'</code>. Las subcarpetas de datos por defecto son:</p>
+<ul>
+<li><strong>Inbox</strong>: Para los mensajes xml recibidos de la AEAT.</li>
+<li><strong>Outbox</strong>: Para los mensajes enviados a la AEAT.</li>
+<li><strong>Blockchains</strong>: Para los archivos csv de cadena de bloques.</li>
+<li><strong>Invoices</strong>: Para los registros enviados almacenados individualmente.</li>
+<li><strong>Log</strong>: Para los mensajes del sistema de logging almacenados en archivos de texto.</li>
+</ul>
+<p>Respecto a las carpetas Inbox, Outbox e Invoices, los datos se almacenan siguiendo una estructura de subcarpetas Emisor &gt; Año. Se crea una subcarpeta por cada emisor. Dentro de la subcarpeta de cada emisor, se almacenan los datos en subcarpetas por años (el año se extrae de la fecha del cálculo de la huella del registro relacionado con el archivo).
+La información en la carpeta Blockchains se almacena en subcarpetas por emisor.</p>
+<a name="messages"/>
+<h2 id="operaciones-env%C3%ADo">Operaciones envío</h2>
+<p>La capa de negocio de la aplicación utiliza el objeto <code>Invoice</code> para representar una factura, sobre la cual podemos realizar distintos tipos de operaciones. La clase <code>Invoice</code> contiene la información de una factura relacionada con las especificaciones de Verifactu (vendedor, comprador, número y fecha factura y detalle de bases imponibles, tipos y cuotas).
+Las operaciones de alta y anulación de una factura en Verifactu toman como parámetro de entrada una instancia del objeto <code>Invoice</code>. Estas operaciones se representan con los objetos <code>InvoiceEntry</code> e <code>InvoiceCancellation</code> para los registros de alta y cancelación respectivamente.</p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creación de una instancia de Invoice</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ-0001"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">17</span>), <span class="hljs-string">"B12959755"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"IRENE SOLUTIONS SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"PRESTACION SERVICIOS DESARROLLO SOFTWARE"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">4</span>,
+            TaxBase = <span class="hljs-number">10</span>,
+            TaxAmount = <span class="hljs-number">0.4</span>m
+        },
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">100</span>,
+            TaxAmount = <span class="hljs-number">21</span>
+        }
+    }
+};
+
+</div></code></pre>
+<h3 id="alta">Alta</h3>
+<p>Para crear y enviar un registro de alta, lo primero que debemos hacer es crear la instancia del objeto <code>Invoice</code> a enviar; para realizar el envío creamos una instancia del la clase <code>InvoiceEntry</code>, pasándole en el constructor como parámetro de entrada la instancia de <code>Invoice</code> a enviar.
+Una vez creada nuestra instancia de <code>InvoiceEntry</code> podemos contabilizarla en la cadena de bloques del vendedor y enviarla utilizando el método <code>Save</code>.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ-0002"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"PRESTACION SERVICIOS DESARROLLO SOFTWARE"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">4</span>,
+            TaxBase = <span class="hljs-number">10</span>,
+            TaxAmount = <span class="hljs-number">0.4</span>m
+        },
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">100</span>,
+            TaxAmount = <span class="hljs-number">21</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura</span>
+<span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+<span class="hljs-comment">// Guardamos la factura</span>
+invoiceEntry.Save();
+
+<span class="hljs-comment">// Consultamos el estado</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Status}</span>"</span>);
+
+<span class="hljs-keyword">if</span> (invoiceEntry.Status == <span class="hljs-string">"Correcto"</span>)
+{
+
+    <span class="hljs-comment">// Consultamos el CSV</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.CSV}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-comment">// Consultamos el error</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.ErrorCode}</span>: <span class="hljs-subst">{invoiceEntry.ErrorDescription}</span>"</span>);
+
+}
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Response}</span>"</span>);
+
+</div></code></pre>
+<h3 id="anulaci%C3%B3n">Anulación</h3>
+<p>Para crear y enviar un registro de anulación de un alta previamente envíada, lo primero que debemos hacer es crear la instancia del objeto <code>Invoice</code> a enviar; para realizar el envío creamos una instancia del la clase <code>InvoiceCancellation</code>, pasándole en el constructor como parámetro de entrada la instancia de <code>Invoice</code> cuyo registro de anulación queremos enviar.
+Una vez creada nuestra instancia de <code>InvoiceCancellation</code> podemos contabilizarla en la cadena de bloques del vendedor y enviarla utilizando el método <code>Save</code>.</p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura con los datos del documento a anular</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ-0002"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+};
+
+<span class="hljs-comment">// Creamos la cancelación de la factura</span>
+<span class="hljs-keyword">var</span> invoiceCancellation = <span class="hljs-keyword">new</span> InvoiceCancellation(invoice);
+
+<span class="hljs-comment">// Guardamos la cancelación factura</span>
+invoiceCancellation.Save();
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceCancellation.Response}</span>"</span>);
+
+</div></code></pre>
+<a name="blockchain"/>
+<h2 id="operaciones-cadena-de-bloques">Operaciones cadena de bloques</h2>
+<blockquote>
+<p>[!CAUTION]
+Por lo general la biblioteca se encarga de realizar las operaciones en la cadena de bloques por nosotros. Es importante señalar que el contenido del presente apartado no es necesario para el uso normal de la biblioteca, y que está redactado con la finalidad de documentar en profundidad el funcionamiento de la misma. Si no es un usuario avanzado no realice modificaciones sobre las cadenas de bloques o de lo contrario podría romper el encadenamiento.</p>
+</blockquote>
+<p>Como indicábamos en la sección del sistema de archivos, la información de las cadenas de bloques de almacena en la carpeta Blockchains cuya ruta se encuentra en el archivo de configuración. La información se almacena en formato csv en archivos con la siguiente nomenclatura:</p>
+<ul>
+<li>_{NIF_EMISOR}.csv: Este archivo contiene la información del último eslabón de la cadena. Número de eslabón, fecha y hora de generación, huella, fecha factura, NIF emisor y número factura.</li>
+<li>{FechaGeneracion:yyyyMM}.csv: Contiene el bloque de la cadena correspondiente al año y mes de fecha generación correspondiente. Por lo tanto, la información de la cadena de bloques completa se obtendrá de la concatenación de todos estos archivos. Número de eslabón, fecha y hora generación, huella, fecha factura, NIF emisor y cadena de entrada utilizada para el cálculo del hash entre corchetes.</li>
+<li>{FechaGeneracion:yyyyMM}.PREV.csv: Copia de seguridad de la cadena de bloques antes de la inserción del último eslabón.</li>
+</ul>
+<h3 id="clase-blockchain">Clase Blockchain</h3>
+<p>La clase Blockchain es la encargada de la gestión de la cadena de bloques de un emisor de facturas concreto. Únicamente puede existir una instancia de está clase por vendedor durante la ejecución del programa.
+La forma de obtener la instancia de esta clase para un vendedor concreto es mediante el método Get de la clase:</p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Obtenemos el controlador de la cadena de bloques del vendedor Irene Solutions SL</span>
+<span class="hljs-comment">// mediante el método Get, al cual la pasamos el NIF de Irene Solutions SL</span>
+<span class="hljs-keyword">var</span> sellerBlockchain = Blockchain.Get(<span class="hljs-string">"B12959755"</span>);
+
+</div></code></pre>
+<p><strong>Propiedades</strong></p>
+<table>
+<thead>
+<tr>
+<th>Propiedad</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BlockchainDataFileName</td>
+<td>Archivo que almacena una porción del Blockchain correspondiente a los movimientos de un mes.</td>
+</tr>
+<tr>
+<td>BlockchainDataPreviousFileName</td>
+<td>Archivo copia de seguridad que almacena una porción del Blockchain correspondiente a los movimientos de un mes excepto el último movimiento. Es la copia del archivo con el nombre BlockchainDataFileName antes del registro del último movimiento.</td>
+</tr>
+<tr>
+<td>BlockchainPath</td>
+<td>Path del directorio de archivado de los datos de la cadena.</td>
+</tr>
+<tr>
+<td>BlockchainVarFileName</td>
+<td>Archivo que almacena el valor de las variables en curso de la cadena.</td>
+</tr>
+<tr>
+<td>Current</td>
+<td>Último elemento de la cadena.</td>
+</tr>
+<tr>
+<td>CurrentID</td>
+<td>Identificador del último eslabón de la cadena.</td>
+</tr>
+<tr>
+<td>CurrentTimeStamp</td>
+<td>Momento de generación del último eslabón de la cadena.</td>
+</tr>
+<tr>
+<td>Initialized</td>
+<td>Indica si el sistema de cadena de bloques está inicializado.</td>
+</tr>
+<tr>
+<td>Key</td>
+<td>Identificador único de la instancia. Se hereda de SingletonByKey&lt;T&gt;.</td>
+</tr>
+<tr>
+<td>Previous</td>
+<td>Penúltimo elemento de la cadena.</td>
+</tr>
+<tr>
+<td>PreviousID</td>
+<td>Identificador del penúltimo eslabón de la cadena.</td>
+</tr>
+<tr>
+<td>PreviousTimeStamp</td>
+<td>Momento de generación del penúltimo eslabón de la cadena.</td>
+</tr>
+<tr>
+<td>SellerID</td>
+<td>Identificador del vendedor. Debe utilizarse el identificador fiscal si existe (NIF, VAT Number...). En caso de no existir, se puede utilizar el número DUNS o cualquier otro identificador acordado.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Métodos</strong></p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Add(List&lt;Registro&gt; )</td>
+<td>Añade una lista de elementos a la cadena de bloques.</td>
+</tr>
+<tr>
+<td>Add(Registro)</td>
+<td>Añade un elemento a la cadena de bloques.</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>Elimina el último elememto añadido a la cadena.</td>
+</tr>
+<tr>
+<td>Get</td>
+<td>Devuelve la instancia correspondiente a la cadena de bloques de un emisor de facturas.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ejemplo inicialización de la cadena de bloques de un vendedor</strong></p>
+<pre class="hljs"><code><div>          
+<span class="hljs-comment">// Creamos una instacia de la clase factura (primera factura)</span>
+<span class="hljs-keyword">var</span> invoiceFirst = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"TEST001"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">10</span>, <span class="hljs-number">14</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"PRESTACION SERVICIOS DESARROLLO SOFTWARE"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxScheme = ClaveRegimen.RegimenGeneral,
+            TaxType = CalificacionOperacion.S1,
+            TaxRate = <span class="hljs-number">4</span>,
+            TaxBase = <span class="hljs-number">10</span>,
+            TaxAmount = <span class="hljs-number">0.4</span>m
+        },
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxScheme = ClaveRegimen.RegimenGeneral,
+            TaxType = CalificacionOperacion.S1,
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">100</span>,
+            TaxAmount = <span class="hljs-number">21</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Obtenemos una instancia de la clase RegistroAlta a partir de</span>
+<span class="hljs-comment">// la instancia del objeto de negocio Invoice</span>
+<span class="hljs-keyword">var</span> registroFirst = invoiceFirst.GetRegistroAlta();
+
+<span class="hljs-comment">// Ahora obtenemos el controlador de la cadena de bloques del vendedor</span>
+<span class="hljs-keyword">var</span> blockchain = Blockchain.Get(invoiceFirst.SellerID);
+
+<span class="hljs-comment">// Añadimos el registro de alta</span>
+blockchain.Add(registroFirst);
+
+<span class="hljs-comment">// Creamos una instacia de la clase factura (segunda factura)</span>
+<span class="hljs-keyword">var</span> invoiceSecond = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"TEST002"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">10</span>, <span class="hljs-number">14</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"PRESTACION SERVICIOS DESARROLLO SOFTWARE"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxScheme = ClaveRegimen.RegimenGeneral,
+            TaxType = CalificacionOperacion.S1,
+            TaxRate = <span class="hljs-number">4</span>,
+            TaxBase = <span class="hljs-number">10</span>,
+            TaxAmount = <span class="hljs-number">0.4</span>m
+        },
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxScheme = ClaveRegimen.RegimenGeneral,
+            TaxType = CalificacionOperacion.S1,
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">100</span>,
+            TaxAmount = <span class="hljs-number">21</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Obtenemos una instancia de la clase RegistroAlta a partir de</span>
+<span class="hljs-comment">// la instancia del objeto de negocio Invoice</span>
+<span class="hljs-keyword">var</span> registroSecond = invoiceSecond.GetRegistroAlta();
+
+<span class="hljs-comment">// Añadimos el registro de alta</span>
+blockchain.Add(registroSecond);
+
+Debug.Print(<span class="hljs-string">$"La huella de la primera factura es: <span class="hljs-subst">{registroFirst.GetHashOutput()}</span>"</span>);
+Debug.Print(<span class="hljs-string">$"La huella de la segunda factura es: <span class="hljs-subst">{registroSecond.GetHashOutput()}</span>"</span>);
+
+</div></code></pre>
+<h3 id="contabilizaci%C3%B3n-de-una-factura">Contabilización de una factura</h3>
+<p>El proceso de contabilización de una factura se realiza mediante el método Save de las clases <code>InvoiceEntry</code> o <code>InvoiceCancellation</code>. Este proceso realiza las siguientes operaciones:</p>
+<ol>
+<li>Añade el registro de la factura a la cadena de bloques, lo cual actualiza su fecha de generación y su huella.</li>
+<li>Obtiene el xml del registro y lo almacena en la carpeta de almacenamiento de registros establecida en la configuración.</li>
+<li>Marca el objeto InvoiceEntry o InvoiceCancellation como contabilizado (Posted = true).</li>
+<li>Realiza el envío a la AEAT y procesa la respuesta almacenándola también el el sistema de archivos.</li>
+</ol>
+<h3 id="contabilizaci%C3%B3n-de-varias-facturas">Contabilización de varias facturas</h3>
+<p>Este mecanismo se utiliza en las colas diseñadas para la gestión de flujo.</p>
+<h3 id="eliminaci%C3%B3n-de-facturas">Eliminación de facturas</h3>
+<p>Tanto los registros de alta como los de cancelación tienen la consideración de facturas para la biblioteca. Cuando un registro de alta es erróneo y ha sido transmitido a la AEAT, debemos realizar el envío de cancelación del mismo, lo cual no supone &quot;eliminar&quot; el registro de la cadena de bloques. En caso de que necesitara realizar una operación de este tipo, póngase en contacto con nosotros support@irenesolutions.com, para que podamos examinar el caso en profundidad en busca de la solución.</p>
+<a name="hash"/>
+<h2 id="operaciones-huella">Operaciones huella</h2>
+<a name="qr"/>
+<p>Generalmente no deberemos preocuparnos por la gestión de la cadena de bloques, ya que el programa se encarga de realizar las operaciones necesarias. Si queremos realizar el cálculo del valor del hash para un registro de alta o anulación determinado, lo podemos hacer del siguiente modo:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GITHUB-EJ-003"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">4</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">4</span>,
+            TaxBase = <span class="hljs-number">10</span>,
+            TaxAmount = <span class="hljs-number">0.4</span>m
+        },
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">100</span>,
+            TaxAmount = <span class="hljs-number">21</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Obtenemos una instancia de la clase RegistroAlta a partir de</span>
+<span class="hljs-comment">// la instancia del objeto de negocio Invoice</span>
+<span class="hljs-keyword">var</span> registro = invoice.GetRegistroAlta();
+
+<span class="hljs-comment">// El registro no ha sido envíado, pero forzamos el valor de</span>
+<span class="hljs-comment">// FechaHoraHusoGenRegistro para que coincida con el últomo envío a la AEAT</span>
+<span class="hljs-keyword">var</span> fechaHoraHusoGenRegistro = <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">4</span>, <span class="hljs-number">12</span>, <span class="hljs-number">36</span>, <span class="hljs-number">39</span>); <span class="hljs-comment">//2024-01-01T19:20:30+01:00 en España peninsula</span>
+registro.FechaHoraHusoGenRegistro = XmlParser.GetXmlDateTimeIso8601(fechaHoraHusoGenRegistro);
+
+<span class="hljs-comment">// Establecemos el valor del encadenamiento anterior</span>
+registro.Encadenamiento = <span class="hljs-keyword">new</span> Encadenamiento() 
+{ 
+    RegistroAnterior = <span class="hljs-keyword">new</span> RegistroAnterior() 
+    { 
+        Huella = <span class="hljs-string">"8C8DCEFB120522E0C71BC19902F44D5334FF6C98E74F0E3AC1D1E5A30C2EA836"</span> 
+    } 
+};
+
+<span class="hljs-comment">// Obtenemos el valor de la huella</span>
+<span class="hljs-keyword">var</span> hash = registro.GetHashOutput(); <span class="hljs-comment">// 4EECCE4DD48C0539665385D61D451BA921B7160CA6FEF46CD3C2E2BC5C778E14</span>
+
+</div></code></pre>
+<h2 id="operaciones-c%C3%B3digo-qr">Operaciones código QR</h2>
+<h3 id="1-obtenci%C3%B3n-de-la-%C2%ABurl%C2%BB-de-cotejo-o-remisi%C3%B3n-de-informaci%C3%B3n-de-la-factura-contenida-en-el-c%C3%B3digo-%C2%ABqr%C2%BB">1. Obtención de la «URL» de cotejo o remisión de información de la factura contenida en el código «QR»</h3>
+<p>En este ejemplo obtendremos la url para el servicio de validación de una factura envíada al entorno de pruebas de la AEAT.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GITHUB-EJ-004"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">4</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"PRESTACION SERVICIOS DESARROLLO SOFTWARE"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">4</span>,
+            TaxBase = <span class="hljs-number">10</span>,
+            TaxAmount = <span class="hljs-number">0.4</span>m
+        },
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">100</span>,
+            TaxAmount = <span class="hljs-number">21</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Obtenemos una instancia de la clase RegistroAlta a partir de</span>
+<span class="hljs-comment">// la instancia del objeto de negocio Invoice</span>
+<span class="hljs-keyword">var</span> registro = invoice.GetRegistroAlta();
+
+<span class="hljs-comment">// Obtenemos la url</span>
+<span class="hljs-keyword">var</span> urlValidacion = registro.GetUrlValidate(); <span class="hljs-comment">//https://prewww2.aeat.es/wlpl/TIKE-CONT/ValidarQR?nif=B72877814&amp;numserie=GITHUB-EJ-004&amp;fecha=04-11-2024&amp;importe=131.4</span>
+
+</div></code></pre>
+<h3 id="2-obtenci%C3%B3n-de-bitmap-con-el-qr-con-la-url-de-cotejo-o-remisi%C3%B3n-de-informaci%C3%B3n-de-la-factura">2. Obtención de Bitmap con el QR con la URL de cotejo o remisión de información de la factura</h3>
+<p>En este ejemplo obtendremos la imágen del QR de la url para el servicio de validación de una factura envíada previamente al entorno de pruebas de la AEAT:</p>
+<p><img src="https://github.com/user-attachments/assets/bc0e7562-4f20-4acc-a17d-95434f7e8ab1" alt="image"></p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GITHUB-EJ-004"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">4</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">4</span>,
+            TaxBase = <span class="hljs-number">10</span>,
+            TaxAmount = <span class="hljs-number">0.4</span>m
+        },
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">100</span>,
+            TaxAmount = <span class="hljs-number">21</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Obtenemos una instancia de la clase RegistroAlta a partir de</span>
+<span class="hljs-comment">// la instancia del objeto de negocio Invoice</span>
+<span class="hljs-keyword">var</span> registro = invoice.GetRegistroAlta();
+
+<span class="hljs-comment">// Obtenemos la imágen del QR</span>
+<span class="hljs-keyword">var</span> bmQr = registro.GetValidateQr();
+
+File.WriteAllBytes(<span class="hljs-string">@"C:\Users\usuario\Downloads\ValidateQrSampe.bmp"</span>, bmQr);
+
+</div></code></pre>
+<a name="fc"/>
+<h2 id="control-de-flujo">Control de flujo</h2>
+<p>La AEAT establece en sus especificaciones, que la aplicación debe disponer de un control de flujo que respete los tiempos de espera entre envíos. Estos tiempos vienen en las respuestas que remite.
+El sistema informático debe esperar antes de realizar otro envío a que transcurra este tiempo o se alcancen los 1.000 registros pendientes de envío. En el siguiente ejemplo veremos como podemos gestionar este flujo con Verifactu:</p>
+<pre class="hljs"><code><div>          
+<span class="hljs-comment">// En este ejemplo añadimos a la cola de envío de registros 1.005 registros de</span>
+<span class="hljs-comment">// alta y 10 registros de cancelación (de los 10 primeros registros de alta)</span>
+<span class="hljs-comment">// Si activamos el log podremos revisar en el mismo que el sistema realiza 2</span>
+<span class="hljs-comment">// envíos. El primero al alcanzar los 1.000 resgistros, y el segundo al transcurrir</span>
+<span class="hljs-comment">// el tiempo de espera establecido en la respuesta a la primera llamada.</span>
+
+<span class="hljs-comment">// Activo el log</span>
+Settings.Current.LoggingEnabled = <span class="hljs-literal">true</span>;
+
+<span class="hljs-keyword">var</span> testId = <span class="hljs-string">"08"</span>;
+<span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;
+
+<span class="hljs-comment">// Deshabilito la validación de NIF en linea con la AEAT</span>
+Settings.Current.SkipNifAeatValidation = <span class="hljs-literal">true</span>;
+<span class="hljs-comment">// Deshabilito la validación de NIFs intracomunitarios</span>
+Settings.Current.SkipViesVatNumberValidation = <span class="hljs-literal">true</span>;
+
+<span class="hljs-comment">// Añado 1.005 registros de alta</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-number">1006</span>; i++)
+{
+
+    <span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+    <span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">$"TEST<span class="hljs-subst">{testId}</span>"</span> + <span class="hljs-string">$"<span class="hljs-subst">{start + i}</span>"</span>.PadLeft(<span class="hljs-number">8</span>, <span class="hljs-string">'0'</span>), <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">10</span>, <span class="hljs-number">29</span>), <span class="hljs-string">"B10795649"</span>)
+    {
+        InvoiceType = TipoFactura.F1,
+        SellerName = <span class="hljs-string">"KIVU SOLUTIONS SL"</span>,
+        BuyerID = <span class="hljs-string">"B44531218"</span>,
+        BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+        Text = <span class="hljs-string">"PRESTACION SERVICIOS DESARROLLO SOFTWARE"</span>,
+        TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+            <span class="hljs-keyword">new</span> TaxItem()
+            {
+                TaxScheme = ClaveRegimen.RegimenGeneral,
+                TaxType = CalificacionOperacion.S1,
+                TaxRate = <span class="hljs-number">4</span>,
+                TaxBase = <span class="hljs-number">10</span>,
+                TaxAmount = <span class="hljs-number">0.4</span>m
+            },
+            <span class="hljs-keyword">new</span> TaxItem()
+            {
+                TaxScheme = ClaveRegimen.RegimenGeneral,
+                TaxType = CalificacionOperacion.S1,
+                TaxRate = <span class="hljs-number">21</span>,
+                TaxBase = <span class="hljs-number">100</span>,
+                TaxAmount = <span class="hljs-number">21</span>
+            }
+        }
+    };
+
+    <span class="hljs-comment">// Creamos el documento de alta</span>
+    Debug.Print(<span class="hljs-string">$"Añadiendo factura <span class="hljs-subst">{invoice}</span> <span class="hljs-subst">{DateTime.Now}</span>"</span>);
+    <span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+    <span class="hljs-comment">// Añadimos el documentos a la cola de procesamiento:</span>
+    <span class="hljs-comment">// En la cola se irán realizando los envíos cuando</span>
+    <span class="hljs-comment">// los documentos en espera sean 1.000 o cuando el</span>
+    <span class="hljs-comment">// tiempo de espera haya finalizado</span>
+    InvoiceQueue.ActiveInvoiceQueue.Add(invoiceEntry);
+
+}
+
+<span class="hljs-comment">// Añado la cancelación de los primeros 10 registros</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-number">11</span>; i++)
+{
+
+    <span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+    <span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">$"TEST<span class="hljs-subst">{testId}</span>"</span> + <span class="hljs-string">$"<span class="hljs-subst">{start + i}</span>"</span>.PadLeft(<span class="hljs-number">8</span>, <span class="hljs-string">'0'</span>), <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">10</span>, <span class="hljs-number">29</span>), <span class="hljs-string">"B10795649"</span>)
+    {
+        InvoiceType = TipoFactura.F1,
+        SellerName = <span class="hljs-string">"KIVU SOLUTIONS SL"</span>,
+        BuyerID = <span class="hljs-string">"B44531218"</span>,
+        BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+        Text = <span class="hljs-string">"PRESTACION SERVICIOS DESARROLLO SOFTWARE"</span>,
+        TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+            <span class="hljs-keyword">new</span> TaxItem()
+            {
+                TaxScheme = ClaveRegimen.RegimenGeneral,
+                TaxType = CalificacionOperacion.S1,
+                TaxRate = <span class="hljs-number">4</span>,
+                TaxBase = <span class="hljs-number">10</span>,
+                TaxAmount = <span class="hljs-number">0.4</span>m
+            },
+            <span class="hljs-keyword">new</span> TaxItem()
+            {
+                TaxScheme = ClaveRegimen.RegimenGeneral,
+                TaxType = CalificacionOperacion.S1,
+                TaxRate = <span class="hljs-number">21</span>,
+                TaxBase = <span class="hljs-number">100</span>,
+                TaxAmount = <span class="hljs-number">21</span>
+            }
+        }
+    };
+
+    <span class="hljs-comment">// Creamos el documento de alta</span>
+    Debug.Print(<span class="hljs-string">$"Añadiendo factura <span class="hljs-subst">{invoice}</span> <span class="hljs-subst">{DateTime.Now}</span>"</span>);
+    <span class="hljs-keyword">var</span> invoiceCencellation = <span class="hljs-keyword">new</span> InvoiceCancellation(invoice);
+
+    <span class="hljs-comment">// Añadimos el documentos a la cola de procesamiento:</span>
+    <span class="hljs-comment">// En la cola se irán realizando los envíos cuando</span>
+    <span class="hljs-comment">// los documentos en espera sean 1.000 o cuando el</span>
+    <span class="hljs-comment">// tiempo de espera haya finalizado</span>
+    InvoiceQueue.ActiveInvoiceQueue.Add(invoiceCencellation);
+
+}
+</div></code></pre>
+<p>Al ejecutar este código, si tenemos el log activado obtendremos la siguiente información en el mismo:</p>
+<pre class="hljs"><code><div>
+[000001] 2024-11-15 17:31:48: Ejecutando por cola (B10795649) tras tiempo espera en segundos: 60 desde 01/01/0001 0:00:00 hasta 01/01/0001 0:01:00
+[000002] 2024-11-15 17:31:48: Actualizando datos de la cadena de bloques (B10795649) en 1000 elementos 15/11/2024 17:31:48
+[000003] 2024-11-15 17:31:49: Finalizada actualización de datos de la cadena de bloques en 1000 elementos 15/11/2024 17:31:49
+[000004] 2024-11-15 17:31:49: Enviando datos a la AEAT B10795649 de 1000 elementos 15/11/2024 17:31:49
+[000005] 2024-11-15 17:31:52: Finalizado envío de datos B10795649 a la AEAT de 1000 elementos (quedan 15 registros) 15/11/2024 17:31:52
+[000006] 2024-11-15 17:31:52: Establecido momento próxima ejecución B10795649 (LastProcessMoment: 15/11/2024 17:31:52 + CurrentWaitSecods: 60) = 15/11/2024 17:32:52
+[000007] 2024-11-15 17:32:53: Ejecutando por cola (B10795649) tras tiempo espera en segundos: 60 desde 15/11/2024 17:31:52 hasta 15/11/2024 17:32:52
+[000008] 2024-11-15 17:32:53: Actualizando datos de la cadena de bloques (B10795649) en 15 elementos 15/11/2024 17:32:53
+[000009] 2024-11-15 17:32:53: Finalizada actualización de datos de la cadena de bloques en 15 elementos 15/11/2024 17:32:53
+[000010] 2024-11-15 17:32:53: Enviando datos a la AEAT B10795649 de 15 elementos 15/11/2024 17:32:53
+[000011] 2024-11-15 17:32:53: Finalizado envío de datos B10795649 a la AEAT de 15 elementos (quedan 0 registros) 15/11/2024 17:32:53
+[000012] 2024-11-15 17:32:53: Establecido momento próxima ejecución B10795649 (LastProcessMoment: 15/11/2024 17:32:53 + CurrentWaitSecods: 60) = 15/11/2024 17:33:53
+
+
+</div></code></pre>
+<blockquote>
+<p>[!IMPORTANT]
+Es importante señalar que el control de flujo se desarrolla en un hilo diferente al principal. Es importante asegurarnos,
+antes de finalizar la ejecución de nuestra aplicación en el hilo principal, de que finalizamos el proceso de control
+de flujo.</p>
+</blockquote>
+<p>El control de flujo se finaliza de la siguiente manera:</p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Cerramos la cola asegurandonos previamente de que no queda nada pendiente</span>
+<span class="hljs-keyword">if</span> (InvoiceQueue.ActiveInvoiceQueue.Count == <span class="hljs-number">0</span>)
+    InvoiceQueue.Exit();
+
+</div></code></pre>
+<a name="st"/>
+<h2 id="trabajo-con-diferentes-certificados-por-ot-o-configuraciones-distintas">Trabajo con diferentes certificados por OT o configuraciones distintas</h2>
+<p>En ocasiones podemos tener la necesidad de trabajar con distintas opciones de configuración, por ejemplo, podemos tener dos empresas en nuestro sistema de facturación, y desearíamos trabajar en una de ellas en el entorno de pruebas y en la otra en el entorno de producción de la AEAT. Otro problema habitual puede ser el que no dispongamos de un certificado digital de colaborador social o empresa fabricante de software que autorizado a realizar envíos en nombre de varios obligados tributarios (OT).</p>
+<p>Una aproximación para resolver este tipo de situaciones es la de utilizar un archivo de configuración distinto por cada obligado tributario (OT), e ir cargando la configuración de trabajo del sistema según trabajemos con uno u otro.</p>
+<blockquote>
+<p>[!CAUTION]
+Es importante asegurarse que la cola de envíos está vacía, si nuestra aplicación hace uso de la funcionalidad de control de flujo.</p>
+</blockquote>
+<p>En el ejemplo siguiente se muestra como se guardan distintos archivos de configuración, y como se establece el uso de uno u otro en la aplicación. Cada vez que se realiza un envío a la AEAT, se carga el certificado establecido en la configuración en ese momento, de modo que cambiando de archivo de configuración podemos (entre otras cosas) cambiar el certificado con el que se va a realizar el envío.</p>
+<h3 id="c">C#</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Trabajos con varios obligados tributarios (OT) utilizando distintos certificados:</span>
+<span class="hljs-comment">// Para trabajar con un certificado digital para distintos tributarios necesitaremos</span>
+<span class="hljs-comment">// disponer de un archivo de configuración distinto para cada uno.</span>
+<span class="hljs-comment">// Posteriormente, en el entorno de ejecución, le diremos a la aplicación con qué</span>
+<span class="hljs-comment">// archivo de configuración queremos trabajar.</span>
+
+<span class="hljs-comment">// IMPORTANTE !!!!!</span>
+<span class="hljs-comment">// La cola de envíos debe estar vacía antes de cambiar de OT si se van a utilizar</span>
+<span class="hljs-comment">// distintos certificados o configuraciónes del sistema diferentes.</span>
+            
+<span class="hljs-keyword">if</span> (InvoiceQueue.ActiveInvoiceQueue.Count &gt; <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">return</span>; <span class="hljs-comment">// Si la cola no está vacía cancelamos</span>
+
+<span class="hljs-comment">// En el ejemplo vamos a crear dos archivos de configuración distintos para dos </span>
+<span class="hljs-comment">// obligados tributarios B12959755 IRENE SOLUTIONS SL y B44531218 WEFINZ SOLUTIONS SL</span>
+
+<span class="hljs-comment">// 1. Creamos los archivos de configuración, incluyendo en cada uno el certificado</span>
+<span class="hljs-comment">// correspondiente al OT</span>
+
+Settings.SetConfigFileName(<span class="hljs-string">"B12959755.xml"</span>); <span class="hljs-comment">// Establecemos el nombre del archivo de configuración</span>
+Settings.Current.CertificatePath = <span class="hljs-string">@"C:\Certificado_B12959755.pfx"</span>;
+Settings.Current.CertificatePassword = <span class="hljs-string">"password certificado 1"</span>;
+Settings.Save(); <span class="hljs-comment">// Guardamos el archivo de configuraciíon 1</span>
+
+Settings.SetConfigFileName(<span class="hljs-string">"B44531218.xml"</span>); <span class="hljs-comment">// Establecemos el nombre del archivo de configuración</span>
+Settings.Current.CertificatePath = <span class="hljs-string">@"C:\Certificado_B44531218.p12"</span>;
+Settings.Current.CertificatePassword = <span class="hljs-string">"password certificado 2"</span>;
+Settings.Save(); <span class="hljs-comment">// Guardamos el archivo de configuraciíon 2</span>
+
+<span class="hljs-comment">// Cuando queramos trabajar con la configuración 1</span>
+Settings.SetConfigFileName(<span class="hljs-string">"B12959755.xml"</span>);
+
+<span class="hljs-comment">// Cuando queramos trabajar con la configuración 2</span>
+Settings.SetConfigFileName(<span class="hljs-string">"B44531218.xml"</span>);
+
+</div></code></pre>
+<h3 id="vb">VB</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">' Trabajos con varios obligados tributarios (OT) utilizando distintos certificados</span>
+<span class="hljs-comment">' Para trabajar con un certificado digital para distintos tributarios necesitaremos</span>
+<span class="hljs-comment">' disponer de un archivo de configuración distinto para cada uno.</span>
+<span class="hljs-comment">' Posteriormente, en el entorno de ejecución, le diremos a la aplicación con qué</span>
+<span class="hljs-comment">' archivo de configuración queremos trabajar.</span>
+
+<span class="hljs-comment">' IMPORTANTE !!!!!</span>
+<span class="hljs-comment">' La cola de envíos debe estar vacía antes de cambiar de OT si se van a utilizar</span>
+<span class="hljs-comment">' distintos certificados o configuraciónes del sistema diferentes.</span>
+
+<span class="hljs-keyword">If</span> (InvoiceQueue.ActiveInvoiceQueue.Count &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">Then</span>
+    <span class="hljs-keyword">Exit</span> <span class="hljs-keyword">Sub</span> <span class="hljs-comment">' Si la cola no está vacía cancelamos</span>
+<span class="hljs-keyword">End</span> <span class="hljs-keyword">If</span>
+
+<span class="hljs-comment">' En el ejemplo vamos a crear dos archivos de configuración distintos para dos </span>
+<span class="hljs-comment">' obligados tributarios B12959755 IRENE SOLUTIONS SL y B44531218 WEFINZ SOLUTIONS SL</span>
+
+<span class="hljs-comment">' 1. Creamos los archivos de configuración, incluyendo en cada uno el certificado</span>
+<span class="hljs-comment">' correspondiente al OT</span>
+
+Settings.SetConfigFileName(<span class="hljs-string">"B12959755.xml"</span>) <span class="hljs-comment">' Establecemos el nombre del archivo de configuración</span>
+Settings.Current.CertificatePath = @<span class="hljs-string">"C:\Certificado_B12959755.pfx"</span>
+Settings.Current.CertificatePassword = <span class="hljs-string">"password certificado 1"</span>
+Settings.Save() <span class="hljs-comment">' Guardamos el archivo de configuraciíon 1</span>
+
+Settings.SetConfigFileName(<span class="hljs-string">"B44531218.xml"</span>) <span class="hljs-comment">' Establecemos el nombre del archivo de configuración</span>
+Settings.Current.CertificatePath = @<span class="hljs-string">"C:\Certificado_B44531218.p12"</span>
+Settings.Current.CertificatePassword = <span class="hljs-string">"password certificado 2"</span>
+Settings.Save(); <span class="hljs-comment">' Guardamos el archivo de configuraciíon 2</span>
+
+<span class="hljs-comment">' Cuando queramos trabajar con la configuración 1</span>
+Settings.SetConfigFileName(<span class="hljs-string">"B12959755.xml"</span>)
+
+<span class="hljs-comment">' Cuando queramos trabajar con la configuración 2</span>
+Settings.SetConfigFileName(<span class="hljs-string">"B44531218.xml"</span>)
+
+</div></code></pre>
+<a name="api"/>
+<h2 id="api-rest">API REST</h2>
+<p>La funcionalidad de la biblioteca Verifactu está disponible en línea mediante un API REST. El uso del API REST elimina la necesidad de preocuparse de los certificados digitales, del almacenamiento de las cadenas de bloques y de los documentos xml; Ya que todas estas funciones se realizan en la nube.
+Los Endpoints disponibles son:</p>
+<ol>
+<li>Envío registros alta: https://facturae.irenesolutions.com:8050/Kivu/Taxes/Verifactu/Invoices/Create</li>
+<li>Envío registro anulación: https://facturae.irenesolutions.com:8050/Kivu/Taxes/Verifactu/Invoices/Cancel</li>
+<li>Generación de código QR: https://facturae.irenesolutions.com:8050/Kivu/Taxes/Verifactu/Invoices/GetQrCode</li>
+<li>Consulta de emisores: https://facturae.irenesolutions.com:8050/Kivu/Taxes/Verifactu/Invoices/GetSellers</li>
+<li>Consulta de envíos realizados: https://facturae.irenesolutions.com:8050/Kivu/Taxes/Verifactu/Invoices/GetFilteredList</li>
+</ol>
+<p>La clase <code>ApiClient</code> del espacio de nombres VeriFactu.Net.Rest encapsula las llamadas al API REST para que se puedan realizar desde el propio software.</p>
+<blockquote>
+<p>[!IMPORTANT]<br>
+Es importante antes de utilizar esta clase que hayamos obtenido nuestra <code>ServiceKey</code> accediendo a este <a href="https://facturae.irenesolutions.com/verifactu/go">enlace</a>. Una vez tengamos nuestra <code>ServiceKey</code> debemos guardarla en la configuración editando nuestro archivo Settings.xml o mediante programación.</p>
+</blockquote>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Guardar ServiceKey</span>
+Settings.Current.Api.ServiceKey = <span class="hljs-string">"My_ServiceKey"</span>;
+Settings.Save();
+
+</div></code></pre>
+<h3 id="env%C3%ADo-de-un-registro-de-alta-mediante-el-api-rest">Envío de un registro de alta mediante el API REST</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ-00039"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"PRESTACION SERVICIOS DESARROLLO SOFTWARE"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">4</span>,
+            TaxBase = <span class="hljs-number">1000</span>,
+            TaxAmount = <span class="hljs-number">40</span>m
+        },
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">1000</span>,
+            TaxAmount = <span class="hljs-number">210</span>
+        }
+    }
+};
+
+<span class="hljs-keyword">dynamic</span> result = ApiClient.Create(invoice);
+
+<span class="hljs-keyword">if</span> (result.ResultCode != <span class="hljs-number">0</span>) 
+{
+
+    Debug.Print(<span class="hljs-string">$"Se ha producido un error al llamar al API: <span class="hljs-subst">{result.ResultMessage}</span>"</span>);
+
+} 
+<span class="hljs-keyword">else</span> 
+{
+
+    <span class="hljs-keyword">var</span> csv = <span class="hljs-string">$"<span class="hljs-subst">{result.Return.CSV}</span>"</span>;
+
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">string</span>.IsNullOrEmpty(csv))
+        Debug.Print(<span class="hljs-string">$"Documento envíado con CSV: <span class="hljs-subst">{csv}</span>"</span>);
+    <span class="hljs-keyword">else</span>
+        Debug.Print(<span class="hljs-string">$"El envío no se ha realizado con éxito: <span class="hljs-subst">{result.Return.ErrorDescription}</span>"</span>);
+
+}    
+
+
+</div></code></pre>
+<h3 id="env%C3%ADo-de-un-registro-de-anulaci%C3%B3n-mediante-el-api-rest">Envío de un registro de anulación mediante el API REST</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ-00039"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>               
+};
+
+<span class="hljs-keyword">dynamic</span> result = ApiClient.Delete(invoice);
+
+<span class="hljs-keyword">if</span> (result.ResultCode != <span class="hljs-number">0</span>)
+{
+
+    Debug.Print(<span class="hljs-string">$"Se ha producido un error al llamar al API: <span class="hljs-subst">{result.ResultMessage}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-keyword">var</span> csv = <span class="hljs-string">$"<span class="hljs-subst">{result.Return.CSV}</span>"</span>;
+
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">string</span>.IsNullOrEmpty(csv))
+        Debug.Print(<span class="hljs-string">$"Documento anulado con CSV: <span class="hljs-subst">{csv}</span>"</span>);
+    <span class="hljs-keyword">else</span>
+        Debug.Print(<span class="hljs-string">$"El envío de anulación no se ha realizado con éxito: <span class="hljs-subst">{result.Return.ErrorDescription}</span>"</span>);
+
+}
+
+</div></code></pre>
+<h3 id="obtenci%C3%B3n-del-c%C3%B3digo-qr-mediante-el-api-rest">Obtención del código QR mediante el API REST</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ-00039"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">4</span>,
+            TaxBase = <span class="hljs-number">1000</span>,
+            TaxAmount = <span class="hljs-number">40</span>m
+        },
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">1000</span>,
+            TaxAmount = <span class="hljs-number">210</span>
+        }
+    }
+};
+
+<span class="hljs-keyword">dynamic</span> result = ApiClient.GetQr(invoice);
+
+<span class="hljs-keyword">if</span> (result.ResultCode != <span class="hljs-number">0</span>)
+{
+
+    Debug.Print(<span class="hljs-string">$"Se ha producido un error al llamar al API: <span class="hljs-subst">{result.ResultMessage}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-keyword">var</span> bitMapBytes = Convert.FromBase64String(result.Return);
+    Bitmap bm = <span class="hljs-keyword">new</span> Bitmap(<span class="hljs-keyword">new</span> MemoryStream(bitMapBytes));
+
+}
+
+</div></code></pre>
+<h3 id="consulta-de-los-emisores-de-factura-mediante-el-api-rest">Consulta de los emisores de factura mediante el API REST</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-keyword">dynamic</span> result = ApiClient.GetSellers();
+
+<span class="hljs-keyword">if</span> (result.ResultCode != <span class="hljs-number">0</span>)
+{
+
+    Debug.Print(<span class="hljs-string">$"Se ha producido un error al llamar al API: <span class="hljs-subst">{result.ResultMessage}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> seller <span class="hljs-keyword">in</span> result.Return)
+        Debug.Print(<span class="hljs-string">$"<span class="hljs-subst">{seller.SellerID}</span>: <span class="hljs-subst">{seller.CompanyName}</span>"</span>);
+
+}
+
+</div></code></pre>
+<h3 id="ejemplo-factura-simplificada-api-rest">Ejemplo factura simplificada API REST</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"FEJ060"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F2,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    Text = <span class="hljs-string">"PRESTACION SERVICIOS CLIENTES VARIOS"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">1000</span>,
+            TaxAmount = <span class="hljs-number">210</span>
+        }
+    }
+};
+
+<span class="hljs-keyword">dynamic</span> result = ApiClient.Create(invoice);
+
+<span class="hljs-keyword">if</span> (result.ResultCode != <span class="hljs-number">0</span>)
+{
+
+    Debug.Print(<span class="hljs-string">$"Se ha producido un error al llamar al API: <span class="hljs-subst">{result.ResultMessage}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-keyword">var</span> csv = <span class="hljs-string">$"<span class="hljs-subst">{result.Return.CSV}</span>"</span>;
+
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">string</span>.IsNullOrEmpty(csv))
+        Debug.Print(<span class="hljs-string">$"Documento envíado con CSV: <span class="hljs-subst">{csv}</span>"</span>);
+    <span class="hljs-keyword">else</span>
+        Debug.Print(<span class="hljs-string">$"El envío no se ha realizado con éxito: <span class="hljs-subst">{result.Return.ErrorDescription}</span>"</span>);
+
+}
+
+</div></code></pre>
+<h3 id="ejemplo-factura-recargo-equivalencia-api-rest">Ejemplo factura recargo equivalencia API REST</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"FEJ062"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"PRESTACION SERVICIOS CLIENTES VARIOS"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">1000</span>,
+            TaxAmount = <span class="hljs-number">210</span>,
+            TaxRateSurcharge = <span class="hljs-number">5.2</span>m,
+            TaxAmountSurcharge = <span class="hljs-number">52</span>
+        }
+    }
+};
+
+<span class="hljs-keyword">dynamic</span> result = ApiClient.Create(invoice);
+
+<span class="hljs-keyword">if</span> (result.ResultCode != <span class="hljs-number">0</span>)
+{
+
+    Debug.Print(<span class="hljs-string">$"Se ha producido un error al llamar al API: <span class="hljs-subst">{result.ResultMessage}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-keyword">var</span> csv = <span class="hljs-string">$"<span class="hljs-subst">{result.Return.CSV}</span>"</span>;
+
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">string</span>.IsNullOrEmpty(csv))
+        Debug.Print(<span class="hljs-string">$"Documento envíado con CSV: <span class="hljs-subst">{csv}</span>"</span>);
+    <span class="hljs-keyword">else</span>
+        Debug.Print(<span class="hljs-string">$"El envío no se ha realizado con éxito: <span class="hljs-subst">{result.Return.ErrorDescription}</span>"</span>);
+
+}
+
+
+</div></code></pre>
+<h3 id="ejemplo-factura-rectificativa-api-rest">Ejemplo factura rectificativa API REST</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"FEJAB065"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.R1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"PRESTACION SERVICIOS CLIENTES VARIOS"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">-100</span>,
+            TaxAmount = <span class="hljs-number">-21</span>,
+        }
+    },
+    RectificationItems = <span class="hljs-keyword">new</span> List&lt;RectificationItem&gt;() 
+    { 
+        <span class="hljs-keyword">new</span> RectificationItem()
+        { 
+            InvoiceID = <span class="hljs-string">"FEJ062"</span>,
+            InvoiceDate = <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>)
+        }
+    }
+};
+
+<span class="hljs-keyword">dynamic</span> result = ApiClient.Create(invoice);
+
+<span class="hljs-keyword">if</span> (result.ResultCode != <span class="hljs-number">0</span>)
+{
+
+    Debug.Print(<span class="hljs-string">$"Se ha producido un error al llamar al API: <span class="hljs-subst">{result.ResultMessage}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-keyword">var</span> csv = <span class="hljs-string">$"<span class="hljs-subst">{result.Return.CSV}</span>"</span>;
+
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">string</span>.IsNullOrEmpty(csv))
+        Debug.Print(<span class="hljs-string">$"Documento envíado con CSV: <span class="hljs-subst">{csv}</span>"</span>);
+    <span class="hljs-keyword">else</span>
+        Debug.Print(<span class="hljs-string">$"El envío no se ha realizado con éxito: <span class="hljs-subst">{result.Return.ErrorDescription}</span>"</span>);
+
+}
+
+
+</div></code></pre>
+<h3 id="factura-a-la-administraci%C3%B3n-con-iva-diferido-api-rest">Factura a la Administración con IVA diferido API REST</h3>
+<p>Este tipo de facturas se emiten a organismos públicos y es obligatorio informar de la fecha de operación.</p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"TS08-001-086"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">12</span>, <span class="hljs-number">11</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"P1203200I"</span>,
+    BuyerName = <span class="hljs-string">"AYUNTAMIENTO DE BURRIANA"</span>,
+    Text = <span class="hljs-string">"CONSTRUCCION NUEVAS OFICINAS"</span>,
+    OperationDate = <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">11</span>), <span class="hljs-comment">// Fecha operación obligatoria</span>
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxScheme = ClaveRegimen.ObraPteDevengoAdmonPublica,
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">1000</span>,
+            TaxAmount = <span class="hljs-number">210</span>
+        }
+    }
+};
+
+<span class="hljs-keyword">dynamic</span> result = ApiClient.Create(invoice);
+
+<span class="hljs-keyword">if</span> (result.ResultCode != <span class="hljs-number">0</span>)
+{
+
+    Debug.Print(<span class="hljs-string">$"Se ha producido un error al llamar al API: <span class="hljs-subst">{result.ResultMessage}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-keyword">var</span> csv = <span class="hljs-string">$"<span class="hljs-subst">{result.Return.CSV}</span>"</span>;
+
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">string</span>.IsNullOrEmpty(csv))
+        Debug.Print(<span class="hljs-string">$"Documento envíado con CSV: <span class="hljs-subst">{csv}</span>"</span>);
+    <span class="hljs-keyword">else</span>
+        Debug.Print(<span class="hljs-string">$"El envío no se ha realizado con éxito: <span class="hljs-subst">{result.Return.ErrorDescription}</span>"</span>);
+
+}
+
+
+</div></code></pre>
+<a name="sampentr"/>
+<h2 id="ejemplos-altas">Ejemplos altas</h2>
+<a name="sampentrgral"/>
+<h3 id="factura-normal-r%C3%A9gimen-general">Factura normal régimen general</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ-0002"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"PRESTACION SERVICIOS DESARROLLO SOFTWARE"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">4</span>,
+            TaxBase = <span class="hljs-number">10</span>,
+            TaxAmount = <span class="hljs-number">0.4</span>m
+        },
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">100</span>,
+            TaxAmount = <span class="hljs-number">21</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura</span>
+<span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+<span class="hljs-comment">// Guardamos la factura</span>
+invoiceEntry.Save();
+
+<span class="hljs-comment">// Consultamos el estado</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Status}</span>"</span>);
+
+<span class="hljs-keyword">if</span> (invoiceEntry.Status == <span class="hljs-string">"Correcto"</span>)
+{
+
+    <span class="hljs-comment">// Consultamos el CSV</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.CSV}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-comment">// Consultamos el error</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.ErrorCode}</span>: <span class="hljs-subst">{invoiceEntry.ErrorDescription}</span>"</span>);
+
+}
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Response}</span>"</span>);
+
+</div></code></pre>
+<a name="sampentrsimp"/>
+<h3 id="factura-simplificada">Factura simplificada</h3>
+<p>La factura simplificada es el TIPO F2, y no es necesario informar datos del comprador.</p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ-F2-0050"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">12</span>, <span class="hljs-number">4</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F2,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    Text = <span class="hljs-string">"PRESTACION SERVICIOS DESARROLLO SOFTWARE"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">4</span>,
+            TaxBase = <span class="hljs-number">10</span>,
+            TaxAmount = <span class="hljs-number">0.4</span>m
+        },
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">100</span>,
+            TaxAmount = <span class="hljs-number">21</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura</span>
+<span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+<span class="hljs-comment">// Guardamos la factura</span>
+invoiceEntry.Save();
+
+<span class="hljs-comment">// Consultamos el estado</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Status}</span>"</span>);
+
+<span class="hljs-keyword">if</span> (invoiceEntry.Status == <span class="hljs-string">"Correcto"</span>)
+{
+
+    <span class="hljs-comment">// Consultamos el CSV</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.CSV}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-comment">// Consultamos el error</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.ErrorCode}</span>: <span class="hljs-subst">{invoiceEntry.ErrorDescription}</span>"</span>);
+
+}
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Response}</span>"</span>);
+
+</div></code></pre>
+<a name="sampentrrec"/>
+<h3 id="factura-recargo-de-equivalencia">Factura recargo de equivalencia</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"TS08-001-022"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">10</span>, <span class="hljs-number">14</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"VENTA A COMERCIO MINORISTA"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxScheme = ClaveRegimen.RecEquivPeqEmp,
+            TaxType = CalificacionOperacion.S1,
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">1000</span>,
+            TaxAmount = <span class="hljs-number">210</span>m,
+            TaxRateSurcharge = <span class="hljs-number">5.2</span>m, <span class="hljs-comment">// Tipo recargo equivalencia</span>
+            TaxAmountSurcharge = <span class="hljs-number">52</span>m <span class="hljs-comment">// Cuota recargo equivalencia</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura</span>
+<span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+<span class="hljs-comment">// Guardamos la factura</span>
+invoiceEntry.Save();
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Response}</span>"</span>);
+
+
+</div></code></pre>
+<a name="sampentrrect"/>
+<h3 id="factura-rectificativa">Factura rectificativa</h3>
+<p>Enviamos una factura normal y luego su rectificación</p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ-0076"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">12</span>, <span class="hljs-number">4</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"PRESTACION SERVICIOS DESARROLLO SOFTWARE"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">200</span>,
+            TaxAmount = <span class="hljs-number">42</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura</span>
+<span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+<span class="hljs-comment">// Guardamos la factura</span>
+invoiceEntry.Save();
+   
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Response}</span>"</span>);
+
+<span class="hljs-comment">// Creamos una instacia de la clase factura para la factura rectificativa</span>
+<span class="hljs-keyword">var</span> invoiceRectif = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-AB-0076"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">12</span>, <span class="hljs-number">10</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.R1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"ABONO ERROR PRECIO FACTURA GIT-EJ-0065"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() 
+    {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">-100</span>,
+            TaxAmount = <span class="hljs-number">-21</span>
+        }
+    },
+    RectificationItems = <span class="hljs-keyword">new</span> List&lt;RectificationItem&gt;() 
+    { 
+        <span class="hljs-keyword">new</span> RectificationItem()
+        { 
+            InvoiceID = <span class="hljs-string">"GIT-EJ-0076"</span>,
+            InvoiceDate = <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">12</span>, <span class="hljs-number">4</span>)
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura rectificativa</span>
+<span class="hljs-keyword">var</span> invoiceEntryRectif = <span class="hljs-keyword">new</span> InvoiceEntry(invoiceRectif);
+          
+<span class="hljs-comment">// Guardamos la factura rectificativa envíandola a la AEAT</span>
+invoiceEntryRectif.Save();
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntryRectif.Response}</span>"</span>);
+
+</div></code></pre>
+<a name="sampentradmondif"/>
+<h3 id="factura-a-la-administraci%C3%B3n-con-iva-diferido">Factura a la Administración con IVA diferido</h3>
+<p>Este tipo de facturas se emiten a organismos públicos y es obligatorio informar de la fecha de operación.</p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"TS08-001-081"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">10</span>, <span class="hljs-number">10</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"P1203200I"</span>,
+    BuyerName = <span class="hljs-string">"AYUNTAMIENTO DE BURRIANA"</span>,
+    Text = <span class="hljs-string">"CONSTRUCCION NUEVAS OFICINAS"</span>,
+    OperationDate = <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">12</span>, <span class="hljs-number">10</span>), <span class="hljs-comment">// Fecha operación obligatoria</span>
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxScheme = ClaveRegimen.ObraPteDevengoAdmonPublica,
+            TaxType = CalificacionOperacion.S1,
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">1000</span>,
+            TaxAmount = <span class="hljs-number">210</span>m,
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura</span>
+<span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+<span class="hljs-comment">// Guardamos la factura</span>
+invoiceEntry.Save();
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Response}</span>"</span>);
+
+</div></code></pre>
+<a name="sampentrnsart714"/>
+<h3 id="factura-operaci%C3%B3n-no-sujeta-art%C3%ADculo-7-14-otros">Factura operación No Sujeta artículo 7, 14, otros</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"TS08-001-094"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">10</span>, <span class="hljs-number">14</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"123456789"</span>,
+    BuyerName = <span class="hljs-string">"CLIENTE EXTRANJERO SERVICIOS INFORMATICOS"</span>,
+    BuyerIDType = IDType.PASAPORTE,
+    BuyerCountryID = <span class="hljs-string">"US"</span>,
+    Text = <span class="hljs-string">"SERVICIOS INFORMATICOS"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            Tax = Impuesto.OTROS,
+            TaxType = CalificacionOperacion.N1,
+            TaxBase = <span class="hljs-number">1000</span>,
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura</span>
+<span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+<span class="hljs-comment">// Guardamos la factura</span>
+invoiceEntry.Save();
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Response}</span>"</span>);
+
+</div></code></pre>
+<a name="sampentrnsloc"/>
+<h3 id="factura-operaci%C3%B3n-no-sujeta-por-reglas-de-localizaci%C3%B3n">Factura operación No Sujeta por Reglas de localización</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"TS08-001-095"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">10</span>, <span class="hljs-number">14</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"123456789"</span>,
+    BuyerName = <span class="hljs-string">"CLIENTE EXTRANJERO SERVICIOS INFORMATICOS"</span>,
+    BuyerIDType = IDType.PASAPORTE,
+    BuyerCountryID = <span class="hljs-string">"US"</span>,
+    Text = <span class="hljs-string">"CLIENTE EXTRANJERO SERVICIOS INFORMATICOS"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            Tax = Impuesto.OTROS,
+            TaxType = CalificacionOperacion.N2,
+            TaxBase = <span class="hljs-number">1000</span>,
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura</span>
+<span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+<span class="hljs-comment">// Guardamos la factura</span>
+invoiceEntry.Save();
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Response}</span>"</span>);
+
+</div></code></pre>
+<a name="sampentrnssuplidos"/>
+<h3 id="factura-con-suplidos">Factura con Suplidos</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"TS08-001-095"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2025</span>, <span class="hljs-number">1</span>, <span class="hljs-number">16</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B12959755"</span>,
+    BuyerName = <span class="hljs-string">"IRENE SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"FACTURA CON SUPLIDOS"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() 
+    {
+        <span class="hljs-comment">// Línea sujeta tipo IVA normal</span>
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">650</span>,
+            TaxAmount = <span class="hljs-number">136.50</span>m
+        },
+        <span class="hljs-comment">// Línea de suplidos</span>
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            Tax = Impuesto.OTROS,
+            TaxType = CalificacionOperacion.N1,
+            TaxBase = <span class="hljs-number">100</span>,
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura</span>
+<span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+<span class="hljs-comment">// Guardamos la factura</span>
+invoiceEntry.Save();
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Response}</span>"</span>);
+
+</div></code></pre>
+<a name="sampentrex20"/>
+<h3 id="factura-exenta-articulo-20-liva">Factura exenta articulo 20 LIVA</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ25-0002"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">12</span>, <span class="hljs-number">11</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"C# PROGRAMMING COURSE"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxException = CausaExencion.E1,
+            TaxBase = <span class="hljs-number">200</span>,
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura</span>
+<span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+<span class="hljs-comment">// Guardamos la factura</span>
+invoiceEntry.Save();
+
+<span class="hljs-comment">// Consultamos el estado</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Status}</span>"</span>);
+
+<span class="hljs-keyword">if</span> (invoiceEntry.Status == <span class="hljs-string">"Correcto"</span>)
+{
+
+    <span class="hljs-comment">// Consultamos el CSV</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.CSV}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-comment">// Consultamos el error</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.ErrorCode}</span>: <span class="hljs-subst">{invoiceEntry.ErrorDescription}</span>"</span>);
+
+}
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Response}</span>"</span>);
+
+</div></code></pre>
+<a name="sampentrtxidue"/>
+<h3 id="factura-a-cliente-con-vat-number-de-la-ue">Factura a cliente con VAT number de la UE</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ25-00001"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2025</span>, <span class="hljs-number">1</span>, <span class="hljs-number">9</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"IE3668997OH"</span>,
+    BuyerName = <span class="hljs-string">"GOOGLE CLOUD EMEA LIMITED"</span>,
+    BuyerIDType = IDType.NIF_IVA,
+    BuyerCountryID = <span class="hljs-string">"IE"</span>,
+    Text = <span class="hljs-string">"SERVICIOS INFORMATICOS"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">100</span>,
+            TaxAmount = <span class="hljs-number">21</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura</span>
+<span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+<span class="hljs-comment">// Guardamos la factura</span>
+invoiceEntry.Save();
+
+<span class="hljs-comment">// Consultamos el estado</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Status}</span>"</span>);
+
+<span class="hljs-keyword">if</span> (invoiceEntry.Status == <span class="hljs-string">"Correcto"</span>)
+{
+
+    <span class="hljs-comment">// Consultamos el CSV</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.CSV}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-comment">// Consultamos el error</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.ErrorCode}</span>: <span class="hljs-subst">{invoiceEntry.ErrorDescription}</span>"</span>);
+
+}
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Response}</span>"</span>);
+
+</div></code></pre>
+<a name="sampentrtxidpassport"/>
+<h3 id="factura-a-cliente-con-pasaporte-como-identificador">Factura a cliente con pasaporte como identificador</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ25-00002"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2025</span>, <span class="hljs-number">1</span>, <span class="hljs-number">9</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"P4366918"</span>,
+    BuyerName = <span class="hljs-string">"ESTIVE SOTANO MENGANO"</span>,
+    BuyerIDType = IDType.PASAPORTE,
+    BuyerCountryID = <span class="hljs-string">"US"</span>,
+    Text = <span class="hljs-string">"SERVICIOS INFORMATICOS"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">100</span>,
+            TaxAmount = <span class="hljs-number">21</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura</span>
+<span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+<span class="hljs-comment">// Guardamos la factura</span>
+invoiceEntry.Save();
+
+<span class="hljs-comment">// Consultamos el estado</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Status}</span>"</span>);
+
+<span class="hljs-keyword">if</span> (invoiceEntry.Status == <span class="hljs-string">"Correcto"</span>)
+{
+
+    <span class="hljs-comment">// Consultamos el CSV</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.CSV}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-comment">// Consultamos el error</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.ErrorCode}</span>: <span class="hljs-subst">{invoiceEntry.ErrorDescription}</span>"</span>);
+
+}
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Response}</span>"</span>);
+
+
+</div></code></pre>
+<a name="sampentrtxidother"/>
+<h3 id="factura-a-cliente-otro-documento-probatorio-como-identificador">Factura a cliente otro documento probatorio como identificador</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ25-00004"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2025</span>, <span class="hljs-number">1</span>, <span class="hljs-number">9</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"999"</span>,
+    BuyerName = <span class="hljs-string">"ESTIVE SOTANO MENGANO"</span>,
+    BuyerIDType = IDType.OTRO_DOC_PROBATORIO,
+    BuyerCountryID = <span class="hljs-string">"US"</span>,
+    Text = <span class="hljs-string">"SERVICIOS INFORMATICOS"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">100</span>,
+            TaxAmount = <span class="hljs-number">21</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura</span>
+<span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+<span class="hljs-comment">// Guardamos la factura</span>
+invoiceEntry.Save();
+
+<span class="hljs-comment">// Consultamos el estado</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Status}</span>"</span>);
+
+<span class="hljs-keyword">if</span> (invoiceEntry.Status == <span class="hljs-string">"Correcto"</span>)
+{
+
+    <span class="hljs-comment">// Consultamos el CSV</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.CSV}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-comment">// Consultamos el error</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.ErrorCode}</span>: <span class="hljs-subst">{invoiceEntry.ErrorDescription}</span>"</span>);
+
+}
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Response}</span>"</span>);
+
+</div></code></pre>
+<a name="sampentrigic"/>
+<h3 id="factura-igic-canarias">Factura IGIC Canarias</h3>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ25-0095"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2024</span>, <span class="hljs-number">12</span>, <span class="hljs-number">4</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"PRESTACION SERVICIOS DESARROLLO SOFTWARE"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxScheme = ClaveRegimen.RegimenGeneral,
+            Tax = Impuesto.IGIC,
+            TaxRate = <span class="hljs-number">7</span>,
+            TaxBase = <span class="hljs-number">100</span>,
+            TaxAmount = <span class="hljs-number">7</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Creamos la entrada de la factura</span>
+<span class="hljs-keyword">var</span> invoiceEntry = <span class="hljs-keyword">new</span> InvoiceEntry(invoice);
+
+<span class="hljs-comment">// Guardamos la factura</span>
+invoiceEntry.Save();
+
+<span class="hljs-comment">// Consultamos el estado</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Status}</span>"</span>);
+
+<span class="hljs-keyword">if</span> (invoiceEntry.Status == <span class="hljs-string">"Correcto"</span>)
+{
+
+    <span class="hljs-comment">// Consultamos el CSV</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.CSV}</span>"</span>);
+
+}
+<span class="hljs-keyword">else</span>
+{
+
+    <span class="hljs-comment">// Consultamos el error</span>
+    Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.ErrorCode}</span>: <span class="hljs-subst">{invoiceEntry.ErrorDescription}</span>"</span>);
+
+}
+
+<span class="hljs-comment">// Consultamos el resultado devuelto por la AEAT</span>
+Debug.Print(<span class="hljs-string">$"Respuesta de la AEAT:\n<span class="hljs-subst">{invoiceEntry.Response}</span>"</span>);
+
+
+</div></code></pre>
+<a name="comiterop"/>
+<h2 id="interoperabilidad-com">Interoperabilidad COM</h2>
+<p>Podemos hacer uso de la Interoperabilidad COM con objeto de utilizar la funcionalidad de Verifactu en Visual Basic 6, php, Microsoft Excel, Ms Office con VBA...
+Si compilamos el proyecto <code>VeriFactu.Com.Interop.csproj</code> para la plataforma de destino que necesitemos, podremos hacer uso de la Iteroperabilidad COM de Microsoft para utilizar las funcionalidades de Verifactu.
+En el ejemplo siguiente vamos a ver como utilizar la librería dll generada en Excel, haciendo uso de VBA (Visual Basic para Aplicaciones).</p>
+<h3 id="determinaci%C3%B3n-de-la-plataforma-de-destino">Determinación de la plataforma de destino</h3>
+<p>Si abrimos la aplicación Excel, en el menú de la izquierda en la parte de abajo encontraremos el item 'Cuenta':</p>
+<p><img src="https://github.com/user-attachments/assets/0e0f1fe6-0653-49b8-8273-3123571d5bd9" alt="image"></p>
+<p>Al pulsar 'Cuenta' encontraremos un panel dónde está la opción de 'Acerca de Excel':</p>
+<p><img src="https://github.com/user-attachments/assets/d6af51b4-af91-42e3-a360-0060fcc57760" alt="image"></p>
+<p>En este punto encontraremos si tenemos la versión de 32 bits o de 64 bits:</p>
+<p><img src="https://github.com/user-attachments/assets/a1cd93ac-55f0-4cd2-a1e9-569631348926" alt="image"></p>
+<p>En el ejemplo tenemos 32 bits:</p>
+<p><img src="https://github.com/user-attachments/assets/d0fb4067-a285-4f57-8645-5639d2b04bec" alt="image"></p>
+<p>Entonces necesitamos utilizar la biblioteca compilada para esta plataforma de destino:</p>
+<p><img src="https://github.com/user-attachments/assets/f9fac4ec-b2ab-4527-a733-4527a2b85d89" alt="image"></p>
+<p>Puede descargar la librería según sus necesidades:</p>
+<ul>
+<li><a href="https://github.com/mdiago/VeriFactu/blob/main/Interop/VerifactuLibs/VerifactuLib%20ARM64/Verifactu.dll">VerifactuLib ARM64</a></li>
+<li><a href="https://github.com/mdiago/VeriFactu/blob/main/Interop/VerifactuLibs/VerifactuLib%20x64/Verifactu.dll">VerifactuLib x64</a></li>
+<li><a href="https://github.com/mdiago/VeriFactu/blob/main/Interop/VerifactuLibs/VerifactuLib%20x86/Verifactu.dll">VerifactuLib x86</a></li>
+</ul>
+<p>Descargue el archivo dll de la plataforma que necesite. Tendrá que registrarla mediante el programa RegAsm.exe que se encuentra en la carpeta de su Net Framework (ejecutando la ventana de comandos como administrador):</p>
+<pre class="hljs"><code><div>C:\Windows\Microsoft.NET\Framework\v4.0.30319\regasm.exe &quot;C:\Program Files (x86)\Irene Solutions SL\VerifactuLib\VeriFactu.dll&quot; /register /codebase /tlb
+</div></code></pre>
+<p>Una vez registrada la biblioteca con RegAsm.exe podemos utilizar el componente COM desde VBA añadiendo la correspondiente referencia:</p>
+<p><img src="https://github.com/user-attachments/assets/cd95d46d-c2ee-4b3c-9c0c-de9f9b43509a" alt="image"></p>
+<p>Después de este trabajo, ya podemos utilizar la funcionalidades de Verifactu. En el código siguiente ilustra la utilización de distintas funciones de la biblioteca:</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">Dim</span> invoice <span class="hljs-keyword">As</span> <span class="hljs-keyword">New</span> VeriFactu.VfInvoice <span class="hljs-comment">' Factura</span>
+    <span class="hljs-keyword">Dim</span> taxItem <span class="hljs-keyword">As</span> <span class="hljs-keyword">New</span> VeriFactu.VfTaxItem <span class="hljs-comment">' Línea de impuestos</span>
+    
+    <span class="hljs-comment">' Datos factura</span>
+    <span class="hljs-keyword">With</span> invoice
+        .InvoiceID = <span class="hljs-string">"FR-VB-003"</span>
+        .InvoiceDate = DateTime.Now
+        .SellerID = <span class="hljs-string">"B12959755"</span>
+        .SellerName = <span class="hljs-string">"IRENE SOLUTIONS SL"</span>
+        .BuyerID = <span class="hljs-string">"B44531218"</span>
+        .BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>
+        .<span class="hljs-keyword">Text</span> = <span class="hljs-string">"PRESTACION SERVICIOS DESARROLLO SOFTWARE"</span>
+    <span class="hljs-keyword">End</span> <span class="hljs-keyword">With</span>
+    
+    <span class="hljs-comment">' Datos línea de impuestos</span>
+    <span class="hljs-keyword">With</span> taxItem
+        .TaxBase = <span class="hljs-number">1000</span>
+        .TaxRate = <span class="hljs-number">21</span>
+        .TaxAmount = <span class="hljs-number">210</span>
+    <span class="hljs-keyword">End</span> <span class="hljs-keyword">With</span>
+    
+    <span class="hljs-comment">' Añadimos la línea de impuestos a la factura</span>
+    invoice.InsertTaxItem taxItem
+    
+    <span class="hljs-keyword">Dim</span> urlValidate <span class="hljs-keyword">As</span> <span class="hljs-built_in">String</span>
+    urlValidate = invoice.GetUrlValidate <span class="hljs-comment">' Obtiene la url de validación de la factura</span>
+    
+    Debug.Print urlValidate <span class="hljs-comment">' Muestra la url de validación</span>
+    
+    <span class="hljs-keyword">Dim</span> xmlRegistroAlta <span class="hljs-keyword">As</span> <span class="hljs-built_in">String</span>
+    xmlRegistroAlta = invoice.GetRegistroAlta <span class="hljs-comment">' Obtiene el xml de alta de la factura</span>
+    
+    Debug.Print xmlRegistroAlta <span class="hljs-comment">' Muestra el xml de alta</span>
+    
+    <span class="hljs-keyword">Dim</span> xmlRegistroAnulacion <span class="hljs-keyword">As</span> <span class="hljs-built_in">String</span>
+    xmlRegistroAnulacion = invoice.GetRegistroAnulacion <span class="hljs-comment">' Obtiene el xml de anulación de la factura</span>
+
+    Debug.Print xmlRegistroAnulacion <span class="hljs-comment">' Muestra el xml de anulación</span>
+    
+    <span class="hljs-comment">' Guarda la imágen del QR de validación en la ruta indicada</span>
+    invoice.GetValidateQr <span class="hljs-string">"C:\qr.bmp"</span>
+    
+    <span class="hljs-comment">' Resultado de la operación de alta a la AEAT</span>
+    <span class="hljs-keyword">Dim</span> altaResult <span class="hljs-keyword">As</span> VeriFactu.VfInvoiceResult
+    
+    <span class="hljs-comment">' Envía el registro de alta de la factura</span>
+    <span class="hljs-keyword">Set</span> altaResult = invoice.Send
+    
+    <span class="hljs-comment">' Muestra el resultado del envío</span>
+    Debug.Print altaResult.ResultCode
+    Debug.Print altaResult.ResultMessage
+    Debug.Print altaResult.CSV
+    
+    <span class="hljs-comment">' Resultado de la operación de anulación a la AEAT</span>
+    <span class="hljs-comment">' Esta prueba anula el alta anterior de la factura !!!</span>
+    <span class="hljs-keyword">Dim</span> anulacionResult <span class="hljs-keyword">As</span> VeriFactu.VfInvoiceResult
+    
+    <span class="hljs-comment">' Envía el registro de anulación de la factura</span>
+    <span class="hljs-comment">' Esta prueba anula el alta anterior de la factura !!!</span>
+    <span class="hljs-keyword">Set</span> anulacionResult = invoice.Delete
+    
+    <span class="hljs-comment">' Muestra el resultado del envío</span>
+    Debug.Print anulacionResult.ResultCode
+    Debug.Print anulacionResult.ResultMessage
+    Debug.Print anulacionResult.CSV
+
+
+</div></code></pre>
+<p>Ejemplo de trabajo con las funciones de configuración</p>
+<pre class="hljs"><code><div>
+    <span class="hljs-keyword">Dim</span> settings <span class="hljs-keyword">As</span> <span class="hljs-keyword">New</span> VfSettings
+    
+    <span class="hljs-comment">' Cargo la configuración</span>
+    settings.Load
+    
+    Debug.Print settings.SistemaInformaticoNombre
+    
+    <span class="hljs-comment">' Cambio el nombre del sistema informatico</span>
+    settings.SistemaInformaticoNombre = <span class="hljs-string">"VERIFACTU EXCEL"</span>
+    
+    <span class="hljs-comment">' Cambio el nombre del archivo de configuración</span>
+    settings.SetConfigFileName (<span class="hljs-string">"MICONFIG.xml"</span>)
+    
+    <span class="hljs-comment">' Guardo la configuración</span>
+    settings.Save
+
+
+</div></code></pre>
+<a name="resend"/>
+<h2 id="reenv%C3%ADo-de-una-factura-no-enviada-por-fallo-en-las-comunicaciones">Reenvío de una factura no enviada por fallo en las comunicaciones</h2>
+<p>Siempre puedes reintentar el envío, en caso de que exista el registro la AEAT te devolverá el mensaje &quot;Registro de facturación duplicado.&quot;</p>
+<p>En el siguiente ejemplo se vuelve a enviar el archivo xml de registro de alta correspondiente a una factura ya enviada:</p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">// Creamos una instacia de la clase factura</span>
+<span class="hljs-keyword">var</span> invoice = <span class="hljs-keyword">new</span> Invoice(<span class="hljs-string">"GIT-EJ25-00110"</span>, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2025</span>, <span class="hljs-number">1</span>, <span class="hljs-number">25</span>), <span class="hljs-string">"B72877814"</span>)
+{
+    InvoiceType = TipoFactura.F1,
+    SellerName = <span class="hljs-string">"WEFINZ GANDIA SL"</span>,
+    BuyerID = <span class="hljs-string">"B44531218"</span>,
+    BuyerName = <span class="hljs-string">"WEFINZ SOLUTIONS SL"</span>,
+    Text = <span class="hljs-string">"PRESTACION SERVICIOS DESARROLLO SOFTWARE"</span>,
+    TaxItems = <span class="hljs-keyword">new</span> List&lt;TaxItem&gt;() {
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">4</span>,
+            TaxBase = <span class="hljs-number">10</span>,
+            TaxAmount = <span class="hljs-number">0.4</span>m
+        },
+        <span class="hljs-keyword">new</span> TaxItem()
+        {
+            TaxRate = <span class="hljs-number">21</span>,
+            TaxBase = <span class="hljs-number">100</span>,
+            TaxAmount = <span class="hljs-number">21</span>
+        }
+    }
+};
+
+<span class="hljs-comment">// Mensaje correspondiente a la factura</span>
+<span class="hljs-keyword">var</span> message = <span class="hljs-keyword">new</span> InvoiceActionMessage(invoice);
+
+<span class="hljs-comment">// Path del archivo xml del registro de alta correspondiente a la factura</span>
+<span class="hljs-keyword">var</span> path = message.InvoiceFilePath;
+
+<span class="hljs-comment">// Envíamos otra vez el fichero</span>
+<span class="hljs-keyword">var</span> response = InvoiceActionMessage.SendXmlBytes(File.ReadAllBytes(path));
+
+<span class="hljs-comment">// Obtenemos la respuesta</span>
+<span class="hljs-keyword">var</span> envelopeResponse = Envelope.FromXml(response);
+<span class="hljs-keyword">var</span> respuesta = (envelopeResponse.Body.Registro <span class="hljs-keyword">as</span> VeriFactu.Xml.Factu.Respuesta.RespuestaRegFactuSistemaFacturacion);
+
+<span class="hljs-comment">// Vemos que la AEAT responde que se trata de un registro duplicado</span>
+Debug.Print(<span class="hljs-string">$"La respuesta de la AEAT al intento de reenvío es:\n<span class="hljs-subst">{respuesta.RespuestaLinea[<span class="hljs-number">0</span>].CodigoErrorRegistro}</span>-<span class="hljs-subst">{respuesta.RespuestaLinea[<span class="hljs-number">0</span>].DescripcionErrorRegistro}</span>"</span>);
+
+</div></code></pre>
+
+</body>
+</html>
