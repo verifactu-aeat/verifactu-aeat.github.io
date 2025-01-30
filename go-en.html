@@ -1,0 +1,819 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>API REST: Verifactu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400&display=swap" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="go.css" rel="stylesheet">
+
+</head>
+<body style="font-family: 'Fira Sans', sans-serif;">
+    <!-- Modal alta usuario -->
+    <div class="modal fade" id="modalUserActivation" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Activate your account</h5>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        We have sent an activation email to the specified address. Please check your email client and click on the activation link. Don't forget to check your spam folder if you haven't received the email.
+                    </p>
+                    <p>
+                        If you want to receive the activation email again, <a href="javascript:Go.Sign.ResetUser();">click here</a>.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="w-100 btn btn-md btn-dark mt-1 mb-3" onclick="Go.Sign.CloseModalUserActivation();">Access</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal activación usuario -->
+    <div class="modal fade" id="modalUserActivationOk" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">User successfully activated.</h5>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Your account has been successfully activated.
+                    </p>
+                    <p>
+                        You can now use the Verifactu API with your ServiceKey.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="w-100 btn btn-md btn-dark mt-1 mb-3" onclick="Go.Sign.CloseModalUserActivationOk();">Access</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal código QR -->
+    <div class="modal fade" id="modalQr" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">QR Code</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="imgQr" />
+                </div>
+                <div class="modal-footer">
+                    <p id="txQr"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Formulario de acceso -->
+    <main class="form-signin w-100 m-auto">
+        <form class="px-5 py-4 border rounded-2 shadow text-center">
+            <img class="mb-2" src="../img/logo-heart.png" alt="Irene Solutions SL" width="90" height="90">
+            <div class="form-floating m-3">
+                <input id="Sign.Credentials.UserID" type="email" class="form-control" placeholder="name@example.com" onkeydown="Go.Ui.TabOnKeyEnter(event, 'Sign.Credentials.UserPass');">
+                <label for="Sign.Credentials.UserID">Email address</label>
+            </div>
+            <div class="form-floating m-3">
+                <input id="Sign.Credentials.UserPass" type="password" class="form-control" placeholder="Password" onkeydown="Go.Ui.TabOnKeyEnter(event, 'btEnter');">
+                <label for="Sign.Credentials.UserPass">Password</label>
+            </div>
+            <div class="form-floating mx-3">
+                <a id="btEnter" class="w-100 btn btn-md btn-dark mt-1 mb-3" href="javascript:Go.Sign.ButtonEnter();">
+                    <span id="spinnerBtEnter" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    <i class="bi bi-key"></i> Go ahead
+                </a>
+            </div>
+        </form>
+    </main>
+    <!-- Notificaciones -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="../img/logo-heart.png" class="rounded me-2" alt="Irene Solutions SL" height="35" width="35">
+                <strong class="me-auto">API REST Verifactu</strong>
+                <small></small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <p>
+                    Enter your email and your password:
+                </p>
+                <div class="alert alert-secondary my-4 py-4">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-light user-select-none">If you are not registered, we will proceed with the registration.</li>
+                        <li class="list-group-item bg-light user-select-none">If you are already registered, you will access your dashboard.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Panel usuario -->
+    <main class="form-panel w-100 h-100 d-none">
+        <!-- Barra menu -->
+        <nav class="navbar navbar-expand-lg border-bottom border-secondary border-opacity-75">
+            <div class="container-fluid">
+                <img src="../img/logo-heart.png" alt="Irene Solutions SL" width="90" height="90" style="margin-top:-1rem;">
+                <a class="navbar-brand fs-2 text-white bg-secondary bg-gradient p-2 border border-1 rounded-2 d-none d-sm-block d-sm-none d-md-block" href="#">VeriFactu REST API (Testing Environment)</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse ps-4" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 pt-3 ps-4">
+                        <li class="nav-item px-4 mx-4 p-1">
+                            <a id="_formQuickstart" class="nav-link active" aria-current="page" href="javascript:Go.Panel.Show('formQuickstart');">Quickstart</a>
+                        </li>
+                        <li class="nav-item px-4 mx-4 p-1">
+                            <a id="_formTest" class="nav-link" aria-current="page" href="javascript:Go.Panel.Show('formTest');">Endpoints</a>
+                        </li>
+                        <li class="nav-item px-4 mx-4 p-1">
+                            <a id="_formFiles" class="nav-link" href="javascript:Go.Panel.Show('formFiles');">Sent</a>
+                        </li>
+                        <li class="nav-item px-4 mx-4 p-1">
+                            <a id="_formDoc" class="nav-link" href="javascript:Go.Panel.Show('formDoc');">Documentation</a>
+                        </li>
+                    </ul>
+                    <a href="#" class="d-block link-dark text-decoration-none">
+                        <div id="Panel.Initial" class="border rounded-circle bg-dark text-light text-center" style="font-size:1.7rem;font-weight:900;width:3rem;height:3rem;">M</div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!-- Contenido -->
+        <div class="container">
+            <!-- Panel Inicio Rapido -->
+            <form id="formQuickstart" class="py-4 m-4">
+                <!-- Introducción -->
+                <div class="shadow-sm p-3 mb-5 bg-body rounded">
+                    <h1 class="fw-bolder">Quickstart</h1>
+                    <br />
+                    <p>
+                        Getting started with VeriFactu is easier than you think. Follow these simple steps to integrate and streamline your invoicing compliance:
+                    </p>
+                    <ol>
+                        <li><strong>QR Code Generation:</strong><br />Embed a QR code in the invoices you issue, typically in PDF format. Our REST API allows you to easily generate a bitmap of the QR code.</li>
+                        <li><strong>E Data Submission to the Spanish Tax Authority (AEAT):</strong><br />Use our REST API to send your invoice data directly to the Spanish Tax Agency's (AEAT) system with minimal effort.</li>
+                    </ol>
+                    <br />
+                    <h4>Test Environment</h4>
+                    <br />
+                    <p>
+                        Our test environment is designed for you to safely experiment and perform all the testing you need. Please note that any data submitted in this environment has no legal validity and will not impact your tax situation.
+                    </p>
+                    <br />
+                    <h4>Accessing the Production Environment</h4>
+                    <br />
+                    <p>
+                        Ready to go live? Email us at <mark><strong>info@irenesolutions.com</strong></mark> with your request. We'll guide you through the steps to complete the process and ensure a seamless transition.
+                    </p>
+                    <br />
+                    <h4>Support and Feedback</h4>
+                    <br />
+                    <p>
+                        Have questions or suggestions? We're here to help. Reach out to us at <mark><strong>info@irenesolutions.com</strong></mark>, and let us assist you in making the most of our API.
+                    </p>
+                    <p>
+                        Thank you for collaborating with us and helping improve our API. We're excited to support your success!
+                    </p>
+
+                </div>
+                <!-- 1. Generación código QR -->
+                <div class="shadow-sm p-3 mb-5 bg-body rounded">
+                    <br />
+                    <h3 class="fw-bold">1. Get the QR Code</h3>
+                    <br />
+                    <p>
+                        We must include a QR code in our invoices according to the <a target="_blank" href="https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/IVA/VERI-FACTU/DetalleEspecificacTecnCodigoQRfactura.pdf">specifications established by the AEAT</a>.
+                        Through this QR code, the buyer can verify whether the invoice has been reported to the AEAT and if the reported data is correct.
+                    </p>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4 m-2 bg-img border">
+                            <div class="bg-img-text">
+                                <p>Example of an invoice with a VERI*FACTU QR code. Scanning the QR code allows you to verify its validity.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-7 p-2 m-2 border">
+                            <p>
+                                The Endpoint to obtain the QR code is:
+                            </p>
+                            <p>
+                                <code>https://facturae.irenesolutions.com:8050/Kivu/Taxes/Verifactu/Invoices/GetQrCode</code>
+                            </p>
+                            <p>
+                                Method:
+                            </p>
+                            <p>
+                                <code>POST</code>
+                            </p>
+                            <p>
+                                Body JSON (<i class="bi bi-exclamation-triangle-fill"></i> No header Authorization required, ServiceKey in body):
+                            </p>
+                            <p>
+                                <textarea id="Panel.Request.BodyQr" cols=50 rows=10 placeholder="Request" style="font-size:0.9rem;"></textarea>
+                            </p>
+                            <p>
+                                <a class="w-100 btn btn-md btn-dark mt-1 mb-3" href="javascript:Go.Panel.TestQr();">Try it yourself</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 2. Submit Your Invoice -->
+                <div class="shadow-sm p-3 mb-5 bg-body rounded">
+                    <br />
+                    <p>
+                        <h3 class="fw-bold">2. Send your invoice to the Spanish Tax Authority (AEAT)</h3>
+                        <br />
+                        When we issue our invoice with the QR code, we must send it to the AEAT so that the QR code validates a correct result.
+                    </p>
+                    <div class="row">
+                        <div class="col-md-8 p-2 m-4 border">
+                            <p>
+                                The Endpoint to submit an invoice is:
+                            </p>
+                            <p>
+                                <code>https://facturae.irenesolutions.com:8050/Kivu/Taxes/Verifactu/Invoices/Create</code>
+                            </p>
+                            <p>
+                                Method:
+                            </p>
+                            <p>
+                                <code>POST</code>
+                            </p>
+                            <p>
+                                Body JSON (<i class="bi bi-exclamation-triangle-fill"></i> No header Authorization required, ServiceKey in body):
+                            </p>
+                            <p>
+                                <textarea id="Panel.Request.BodySend" cols=50 rows=10 placeholder="Request" style="font-size:0.9rem;"></textarea>
+                            </p>
+                            <p>
+                                <a class="w-100 btn btn-md btn-dark mt-1 mb-3" href="javascript:Go.Panel.TestSend();">Try it yourself</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- Panel test API REST -->
+            <form id="formTest" class="px-5 py-4 d-none">
+                <div class="border rounded-2 p-2 m-2 shadow ">
+                    <h5 style="text-align:left !important;">Access credentials</h5>
+                    <div class="row p-2">
+                        <div class="col-md-4">
+                            <label class="form-label" for="Panel.UserID" style="width: 95%; text-align:left !important;">Username</label>
+                            <div class="input-group mb-3">
+                                <input id="Panel.UserID" type="email" class="form-control" placeholder="name@example.com" onkeydown="Go.Ui.TabOnKeyEnter(event, 'Panel.ServiceKey');" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <label for="Panel.ServiceKey" class="form-label" style="width: 95%; text-align:left !important;">ServiceKey</label>
+                            <div class="input-group mb-3">
+                                <input id="Panel.ServiceKey" type="text" class="form-control" placeholder="Panel.ServiceKey" aria-label="Panel.ServiceKey" aria-describedby="bt-copy-clipboard" onkeydown="Go.Ui.TabOnKeyEnter(event, 'Panel.ServiceKey');" readonly>
+                                <button class="btn btn-outline-dark" type="button" id="bt-copy-clipboard" data-bs-toggle="tooltip" data-bs-title="Copy to clipboard" onclick="Go.Panel.ButtonCopyServiceKeyToClipboard();">
+                                    <i class="bi bi-clipboard"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border rounded-2 p-2 m-2 shadow ">
+                    <h5 style="text-align:left !important;">Select Endpoint and click 'Run' button to see POST call result.</h5>
+                    <div class="row p-2">
+                        <div class="col-md-3 pt-4">
+                            <select class="form-select" id="Panel.EpMode" aria-label="Enpoints">
+                                <option value="00" selected>Invoice Creation Endpoint</option>
+                                <option value="01">Invoice Cancellation Endpoint</option>
+                                <option value="02">QR Code Generation Endpoint</option>
+                                <option value="03">Issuer Query Endpoint</option>
+                                <option value="04">Submitted Invoices Query Endpoint</option>
+                                <option value="05">Invoice Creation Endpoint (Example of a Simplified Invoice)</option>
+                                <option value="06">Invoice Creation Endpoint (Example with Equivalence Surcharge)</option>
+                                <option value="07">Invoice Creation Endpoint (Example of a Corrective Invoice)</option>
+                                <option value="08">Invoice Creation Endpoint (Invoice to the Administration with Deferred VAT)</option>
+                                <option value="09">Invoice Creation Endpoint (Invoice Issued Not Subject to VAT under Article 7, 14, or Others)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-9">
+                            <label for="Panel.Request.Url"></label>
+                            <input id="Panel.Request.Url" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                </div>
+                <p class="pt-3">
+                    You can edit the input JSON to see different results:
+                </p>
+                <div class="row py-3">
+                    <div class="col-md-6">
+                        <textarea id="Panel.Request.Body" cols=50 rows=10 placeholder="Request"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <textarea id="Panel.Request.Response" cols=50 rows=10 disabled placeholder=""></textarea>
+                    </div>
+                    <div class="row py-1">
+                        <div class="col-md-6">
+                            <a id="btPost" class="btn btn-md btn-dark mt-1 mb-3 float-end" href="javascript:Go.Panel.ButtonPost();">
+                                <span id="timer" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                <i class="bi bi-send"></i> Run
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a id="btJson" class="btn btn-md btn-dark mt-1 mb-3 float-end disabled" href="javascript:Go.Panel.ButtonDownload();">
+                                <span id="timerd" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                <i class="bi bi-filetype-json"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- Panel Envíos -->
+            <form id="formFiles" class="px-5 py-4 d-none">
+                <h5 style="text-align:left !important;">Select the document issuer to query</h5>
+                <div class="row">
+                    <div class="col-md-3 pt-4">
+                        <select class="form-select" id="Panel.SellerID" aria-label="Issuers">
+                        </select>
+                    </div>
+                    <div class="col-md-3 pt-4">
+                        <select class="form-select" id="Panel.PeriodID" aria-label="Periods">
+                        </select>
+                    </div>
+                    <div class="col-md-6 pt-4">
+                        <div class="input-group mb-3">
+                            <input id="invoiceFilter" type="text" class="form-control" aria-label="Buscar facturas" onkeyup="Go.Panel.FilterInvoices(this);" onpaste="Go.Panel.FilterInvoices(this);" oninput="Go.Panel.FilterInvoices(this);">
+                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="table-responsive" style="font-size:0.85rem;" ">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Id. Buyer</th>
+                                    <th scope="col">Buyer Name</th>
+                                    <th scope="col" style="text-align: right;">Amount</th>
+                                    <th scope="col">Result</th>
+                                </tr>
+                            </thead>
+                            <tbody id="invoices">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+            <!-- Panel Documentación -->
+            <form id="formDoc" class="py-4 m-4 d-none">
+                <h1 style="text-align: left !important;">Invoice</h1>
+                <br />
+                <p>
+                    All Endpoints accept an <code>Invoice</code> object as an input parameter. The number of required parameters varies depending on the operation being performed (registration, cancellation, or generation of a validation QR code).
+                </p>
+                <br />
+                <p class="pb-4">
+                    The following table describes the value of the properties of the <code>Invoice</code> object:
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-striped align-start">
+                        <thead>
+                            <tr>
+                                <th scope="col">Propiedad</th>
+                                <th scope="col">Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>Status</code></td>
+                                <td>
+                                    <p>
+                                        Indicates the status of the document. If we want to make a final submission to the AEAT server, it must contain any value other than 'DRAFT'. However, if we want to obtain a draft with the XML of the record and the QR code image, we need to specify the value 'DRAFT'.
+                                    </p>
+                                    <p>
+                                        Alphanumeric(20).
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>InvoiceType</code></td>
+                                <td>
+                                    <p>
+                                        Its default value is F1. It corresponds to the value of the TipoFactura field in the VERI*FACTU specifications. The meaning of this field is the Key of the invoice type and
+                                        the allowed values ​​correspond to the list L2 according to the following equivalences:
+                                    </p>
+                                    <p>
+                                        <ul style="list-style-type:square; padding-left: 4rem;">
+                                            <li>F1: Invoice (art. 6, 7.2 and 7.3 of RD 1619/2012).</li>
+                                            <li>F2: Simplified Invoice and Invoices without recipient identification art. 6.1.d) RD 1619/2012.</li>
+                                            <li>F3: Invoice issued in replacement of simplified invoices invoiced and declared.</li>
+                                            <li>R1: Rectifying Invoice (Error based on law and Art. 80 One Two and Six LIVA).</li>
+                                            <li>
+                                                R2: Rectifying Invoice (Art. 80.3). When the recipient
+                                                of the operations subject to the Tax has not made
+                                                effective the payment of the transferred quotas and provided that,
+                                                after the accrual of the operation, a bankruptcy declaration order is issued.
+                                            </li>
+                                            <li>
+                                                R3: Rectifying Invoice (Art. 80.4). When the credits
+                                                corresponding to the fees passed on by the taxed operations are totally or partially uncollectible.
+                                            </li>
+                                            <li>R4: Rectifying Invoice (Other).</li>
+                                            <li>R5: Rectifying Invoice in simplified invoices billed and declared.</li>
+                                        </ul>
+                                    </p>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>InvoiceID</code></td>
+                                <td>
+                                    <p>
+                                        Invoice identifier. Its value represents the NumSerieFactura field, Invoice Serie + Invoice Number Number that identifies the invoice issued.
+                                    </p>
+                                    <p>
+                                        Alphanumeric(60).
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>InvoiceDate</code></td>
+                                <td>
+                                    <p>
+                                        Date of issue of the invoice.
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>SellerID</code></td>
+                                <td>
+                                    <p>
+                                        Tax identification number (NIF) of the person required to issue the invoice.
+                                    </p>
+                                    <p>
+                                        FormatoNIF(9).
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>CompanyName</code></td>
+                                <td>
+                                    <p>
+                                        Name or business name of the seller.
+                                    </p>
+                                    <p>
+                                        Alphanumeric(120).
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>RelatedPartyID</code></td>
+                                <td>
+                                    <p>
+                                        Seller ID. The tax ID must be used if it exists (NIF, VAT Number...).
+                                        If it does not exist, the passport number, official identification document
+                                        issued by the country or territory of residence, or any other established identifier can be used.
+                                    </p>
+                                    <p>
+                                        Alphanumeric(20).
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>RelatedPartyName</code></td>
+                                <td>
+                                    <p>
+                                        Name or business name of the buyer.
+                                    </p>
+                                    <p>
+                                        Alphanumeric(120).
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>RelatedPartyIDType</code></td>
+                                <td>
+                                    <p>
+                                        Its default value is 02. Key to establish the type of identification in the country of residence. L7.
+                                    </p>
+                                    <p>
+                                        <ul style="list-style-type:square; padding-left: 4rem;">
+                                            <li>02: NIF-IVA (02).</li>
+                                            <li>03: PASSPORT (03).</li>
+                                            <li>04: OFFICIAL IDENTIFICATION DOCUMENT ISSUED BY THE COUNTRY OR TERRITORY OF RESIDENCE (04).</li>
+                                            <li>05: CERTIFICATE OF RESIDENCY (05).</li>
+                                            <li>06: OTHER PROVIDING DOCUMENT (06).</li>
+                                            <li>07: NOT REGISTERED (07).</li>
+                                        </ul>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>Text</code></td>
+                                <td>
+                                    <p>
+                                        Description of the invoice object, equivalent to the OperationDescription field.
+                                    </p>
+                                    <p>
+                                        Alfanumérico (500).
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>TaxItems</code></td>
+                                <td>
+                                    <p>
+                                        Array of <code>TaxItem</code> elements that collects the tax line information for the invoice.
+                                    </p>
+                                    <p>
+                                        The properties of the <code>TaxItem</code> element are listed in the following table.
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <h1 style="text-align: left !important;">TaxItem</h1>
+                <br />
+                <p class="pb-4">
+                    The following table describes the value of the <code>TaxItem</code> properties:
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-striped align-start">
+                        <thead>
+                            <tr>
+                                <th scope="col">Property</th>
+                                <th scope="col">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>TaxScheme</code></td>
+                                <td>
+                                    <p>
+                                        Its default value is 01. Tax scheme. Its default value is 0. It corresponds to the ClaveRegimen field of the DetalleDesglose,
+                                        and identifies the type of VAT or IGIC regime or an operation with tax significance.
+                                        Its values ​​for VAT and IGIC are in tables L8A/L8B.
+                                    </p>
+                                    <p>
+                                        Alphanumeric(2).
+                                    </p>
+                                    <p>
+                                        <ul style="list-style-type:square; padding-left: 4rem;">
+                                            <li> 01: Normal spanish zone invoice ('01').</li>
+                                            <li> 02: Export ('02').</li>
+                                            <li> 03: Operations to which the special regime for used goods, works of art, antiques and collector's items applies ('03').</li>
+                                            <li> 04: Special regime for investment gold ('04').</li>
+                                            <li> 05: Special regime for travel agencies ('05').</li>
+                                            <li> 06: Special regime for groups of entities in VAT/IGIC (Advanced Level) ('06').</li>
+                                            <li> 07: Special regime of the cash basis ('07').</li>
+                                            <li> 08: L8A and L8B: Operations subject to IPSI / IGIC / VAT (Tax on Production, Services and Importation / Canary Islands General Indirect Tax).</li>
+                                            <li> 09: Billing for services provided by travel agencies that act as intermediaries on behalf of and for the account of others (D.A.4ª RD1619/2012) ('09').</li>
+                                            <li> 10: Collections on behalf of third parties of professional fees or rights derived from industrial property, copyright or others on behalf of its partners, associates or members made by companies, associations, professional colleges or other entities that perform these collection functions ('10').</li>
+                                            <li> 11: Business premises leasing operations ('11').</li>
+                                            <li> 14: L8A and L8B: Invoice with VAT / IGIC pending accrual in work certifications whose recipient is a Public Administration ('14').</li>
+                                            <li> 15: L8A and L8B: Invoice with VAT / IGIC pending accrual in successive tract operations ('15').</li>
+                                            <li> 17: L8A: OSS and IOSS VAT. L8B: Special regime for retail merchants ('17').</li>
+                                            <li> 18: L8A: Equivalence surcharge. L8B: Special regime for small business owners or professionals ('18').</li>
+                                            <li> 19: L8A: Operations of activities included in the Special Regime for Agriculture, Livestock and Fisheries (REAGYP). L8B: Domestic operations exempt by application of article 25 Law 19/1994 ('19').</li>
+                                            <li> 20: Simplified regime only for VAT ('20').</li>
+                                        </ul>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>TaxType</code></td>
+                                <td>
+                                    <p>
+                                        Its default value is S1. It corresponds to the value of the CalificacionOperacion field and is the key for the taxable and non-exempt operation or the non-taxable operation.
+                                        The values ​​it can have are related to those in list L9.
+                                    </p>
+                                    <p>
+                                        Alphanumeric(2).
+                                    </p>
+                                    <p>
+                                        <ul style="list-style-type:square; padding-left: 4rem;">
+                                            <li>S1: Taxable and Non-Exempt Operation - Without reversal of the taxable person.</li>
+                                            <li>S2: Taxable and Non-Exempt Operation - With Reversal of the Taxable Person.</li>
+                                            <li>N1: Operation Not Subject to Article 7, 14, others.</li>
+                                            <li>N2: Operation Not Subject to Localization Rules.</li>
+                                        </ul>
+                                    </p>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>TaxException</code></td>
+                                <td>
+                                    <p>
+                                        It corresponds to the value of the OperacionExenta field and is THE field that specifies the cause of exemption.
+                                        The values ​​it can have are related to those in list L10.
+                                    </p>
+                                    <p>
+                                        Alphanumeric(2).
+                                    </p>
+                                    <p>
+                                        <ul style="list-style-type:square; padding-left: 4rem;">
+                                            <li> E1: Exempt by Article 20.</li>
+                                            <li> E2: Exempt by Article 21.</li>
+                                            <li> E3: Exempt by Article 22.</li>
+                                            <li> E4: Exempt by Articles 23 and 24.</li>
+                                            <li> E5: Exempt by Article 25.</li>
+                                            <li> E6: Exempt by others.</li>
+                                        </ul>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>TaxBase</code></td>
+                                <td>
+                                    <p>
+                                        Taxable base. It corresponds to the BaseImponibleOimporteNoSujeto field or to the BaseImponibleACoste field in advanced level groups.
+                                        It is the monetary amount to which the tax rate is applied.
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>TaxRate</code></td>
+                                <td>
+                                    <p>
+                                        Tax rate. This corresponds to the TaxType field and is the percentage applied to the taxable base to calculate the tax amount.
+                                    </p>
+                                    <p>
+                                        Decimal(3,2).
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>TaxAmount</code></td>
+                                <td>
+                                    <p>
+                                        Taxable quota amount. This corresponds to the Repercutida Quota field and is the quota resulting from applying the tax rate to the taxable base.
+                                    </p>
+                                    <p>
+                                        Decimal(12,2).
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>TaxRateSurcharge</code></td>
+                                <td>
+                                    <p>
+                                        Surcharge tax rate. This corresponds to the TipoRecargoEquivalencia field and is the percentage associated with the tax and tax rate
+                                        applied to the taxable base to calculate the equivalence surcharge rate.
+                                    </p>
+                                    <p>
+                                        Decimal(3,2).
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>TaxAmountSurcharge</code></td>
+                                <td>
+                                    <p>
+                                        Surcharge tax rate amount. This corresponds to the CuotaRecargoEquivalencia field and is the rate resulting from applying the equivalent surcharge rate to the tax base.
+                                    </p>
+                                    <p>
+                                        Decimal(12,2).
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <h1 style="text-align: left !important;">Result</h1>
+                <br />
+                <p>
+                    La respuesta devuelta se trata de un objeto <code>Result</code>. El objeto <code>Result</code> contiene las propiedades <code>ResultCode</code>, <code>ResultMessage</code> y <code>Return</code>:
+
+                    <ul>
+                        <li><strong>ResultCode:</strong> Si todo ha ido correctamente devuelve el valor 0, en caso contrario devolverá un código de error.</li>
+                        <li><strong>ResultMessage:</strong> Mensaje descriptivo de cómo ha sido el resultado.</li>
+                        <li><strong>Return:</strong> Objeto con el resultado de la operación.</li>
+                    </ul>
+
+                </p>
+                <br />
+                <p class="pb-4">
+                    The <code>Return</code> object contains the same properties as the <code>Invoice</code> object, plus the results of the call processing. The following table describes the values of the additional <code>Return</code> properties:
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-striped align-start">
+                        <thead>
+                            <tr>
+                                <th scope="col">Property</th>
+                                <th scope="col">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>ExternKey</code></td>
+                                <td>
+                                    <p>
+                                        Represents the identifier of the blockchain link corresponding to the submitted invoice.
+                                    </p>
+                                    <p>
+                                        Alphanumeric(20).
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>StatusResponse</code></td>
+                                <td>
+                                    <p>
+                                        Estado asignado por la AEAT a la respuesto. Si todo ha ido bien devuelve el valor 'Correcto'.
+                                    </p>
+                                    <p>
+                                        Alphanumeric(20).
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>ErrorCode</code></td>
+                                <td>
+                                    <p>
+                                        Error code returned by the AEAT server. If everything went well, its value will be null.
+                                    </p>
+                                    <p>
+                                        Alphanumeric(100).
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>ErrorDescription</code></td>
+                                <td>
+                                    <p>
+                                        Error description returned by the AEAT server. If everything went well, its value will be null.
+                                    </p>
+                                    <p>
+                                        Alphanumeric(1000).
+                                    </p>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>CSV</code></td>
+                                <td>
+                                    <p>
+                                        Secure Verification Code (CSV) returned by the AEAT. If everything went well, it should contain a value other than null.
+                                    </p>
+                                    <p>
+                                        Alphanumeric(100).
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>QrCode</code></td>
+                                <td>
+                                    <p>
+                                        Bitmap image (.bmp) encoded in Base64.
+                                    </p>
+                                    <p>
+                                        Bytes.
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>Xml</code></td>
+                                <td>
+                                    <p>
+                                        XML file sent to the AEAT.
+                                    </p>
+                                    <p>
+                                        String.
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>Response</code></td>
+                                <td>
+                                    <p>
+                                        XML file received in response from the AEAT.
+                                    </p>
+                                    <p>
+                                        String.
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </form>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="../js/Kivu.Client.0.0.12.js"></script>
+    <script src="../js/Wefinz.Pages.ModelView.js"></script>
+    <script src="go.js"></script>
+</body>
+</html>
